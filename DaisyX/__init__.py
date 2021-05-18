@@ -37,7 +37,7 @@ assist = Client(
     )
 '''
 # Extras
-version = "S.0.1"
+__version__ = "S.0.1"
 
 # Logging at the start to catch everything
 logging.basicConfig(
@@ -79,5 +79,5 @@ scheduler = AsyncIOScheduler()
 CMD_HELP = {}
 client = None
 name = "daisyx"
-SkemX = SkemX(name)
+SkemX = SkemX(__version__)
 
