@@ -72,6 +72,35 @@ class SkemX(Client):
             app_version="DaisyX S.0.1",
         )
 
+    async def start(self):
+        await super().start()
+        await super().send_message("me", "DaisyX started")
+
+        print("DaisyX started. Hi.")
+
+    async def stop(self, *args):
+        await super().stop()
+        print("DaisyX stopped. Bye.")
+
+    async def restart(self, *args, git_update=False, pip=False):
+        """ Shoutout to the Userg team for this."""
+        await self.stop()
+        try:
+            c_p = psutil.Process(os.getpid())
+            for handler in c_p.open_files() + c_p.connections():
+                os.close(handler.fd)
+        except Exception as c_e:
+            print(c_e)
+
+        if git_update:
+            os.system("git reset --hard")
+            os.system("git pull")
+        if pip:
+            os.system("pip install -U -r requirements.txt")
+
+        os.execl(sys.executable, sys.executable, "-m", self.__class__.__name__.lower())
+        sys.exit()
+
 # Scheduler
 scheduler = AsyncIOScheduler()
 
