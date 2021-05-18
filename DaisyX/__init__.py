@@ -32,6 +32,8 @@ assist = Client(
 
 # Global Variables
 CMD_HELP = {}
+client = None
+SkemX = SkemX("DaisyX")
 
 # Extras
 version = S.0.1
@@ -45,7 +47,7 @@ logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("apscheduler").setLevel(logging.ERROR)
 
 # Modules Loading
-class DaisyX(Client):
+class SkemX(Client):
     file_path = pathlib.Path(__file__).parent
     main_directory = str(file_path.parent)
     def __init__(self, name):
@@ -59,3 +61,5 @@ class DaisyX(Client):
             workdir="./",
             app_version="DaisyX S.0.1",
         )
+
+
