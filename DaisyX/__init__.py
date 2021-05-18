@@ -36,6 +36,8 @@ assist = Client(
         sleep_threshold=180,
     )
 '''
+app.start() 
+
 # Extras
 __version__ = "S.0.1"
 
