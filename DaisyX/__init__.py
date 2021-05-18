@@ -2,11 +2,13 @@
 # Special Thanks To Ak Hacker who Helped me in This. 
 
 import os
-import time
 import pathlib
 import logging
 
 from pyrogram import Client
+from datetime import datetime
+from logging.handlers import TimedRotatingFileHandler
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 
 
@@ -37,13 +39,22 @@ assist = Client(
 # Extras
 version = "S.0.1"
 
-# Enable Logging in Pyrogram
+# Logging at the start to catch everything
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - [DAISYXUB] - %(levelname)s - %(message)s",
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.WARNING,
+    handlers=[
+        TimedRotatingFileHandler(
+            "logs/DaisyX.log",
+            when="midnight",
+            encoding=None,
+            delay=False,
+            backupCount=10,
+        ),
+        logging.StreamHandler(),
+    ],
 )
-logging.getLogger("pyrogram").setLevel(logging.ERROR)
-logging.getLogger("apscheduler").setLevel(logging.ERROR)
+LOGS = logging.getLogger(__name__)
 
 # Modules Loading
 class SkemX(Client):
@@ -60,6 +71,9 @@ class SkemX(Client):
             workdir="./",
             app_version="DaisyX S.0.1",
         )
+
+# Scheduler
+scheduler = AsyncIOScheduler()
 
 # Global Variables
 CMD_HELP = {}
