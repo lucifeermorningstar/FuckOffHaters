@@ -11,10 +11,11 @@ from functools import partial
 from logging.handlers import TimedRotatingFileHandler
 
 
-# General Details
+# Config in init as of now
 API_ID = os.environ.get("API_ID", None) 
 API_HASH = os.environ.get("API_HASH", None) 
 SESSION = os.environ.get("SESSION", None) 
+PREFIX = os.environ.get("PREFIX", ".") # '.' as default prefix
 
 # StartTime
 StartTime = datetime.now()
@@ -109,5 +110,4 @@ name = "daisyx"
 SkemX = SkemX(__version__)
 
 # Command Manager
-PREFIX = [".", "!", "?"]
 command = partial(filters.command, prefixes=PREFIX)
