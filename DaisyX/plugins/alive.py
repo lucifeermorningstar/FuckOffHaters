@@ -4,9 +4,9 @@ from datetime import datetime
 from pyrogram import filters
 from platform import python_version
 
-from DaisyX import app, __version__
+from DaisyX import SkemX, __version__
 
-@app.on_message(filters.command("alive", ".") & filters.me)
+@SkemX.on_message(filters.command("alive", ".") & filters.me)
 async def alive(app, message):
     txt = (
         f"**ᴅᴀɪsʏ χ** ɪs ᴡᴏʀᴋɪɴɢ ᴘʀᴏᴘᴇʀʟʏ\n"
