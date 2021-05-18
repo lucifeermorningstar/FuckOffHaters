@@ -5,7 +5,7 @@ from DaisyX import app, __version__
 from platform import python_version
 
 @app.on_message(filters.command("alive", ".") & filters.me)
-async def alive(_, message: Message):
+async def alive(app, message):
     txt = (
         f"**ᴅᴀɪsʏ χ** ɪs ᴡᴏʀᴋɪɴɢ ᴘʀᴏᴘᴇʀʟʏ\n"
         f"==>> sᴛᴀʀᴛ ᴛɪᴍᴇ: `{str(datetime.now() - START_TIME).split('.')[0]}`\n"
