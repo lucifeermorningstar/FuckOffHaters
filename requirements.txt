@@ -1,0 +1,4 @@
+# General Requirements
+pyrogram
+TgCrypto
+requests
