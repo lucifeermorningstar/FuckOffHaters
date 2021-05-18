@@ -36,7 +36,7 @@ client = None
 SkemX = SkemX("DaisyX")
 
 # Extras
-version = S.0.1
+version = "S.0.1"
 
 # Enable Logging in Pyrogram
 logging.basicConfig(
