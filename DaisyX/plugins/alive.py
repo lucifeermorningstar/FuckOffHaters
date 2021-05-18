@@ -1,7 +1,7 @@
 from pyrogram import filters
 from DaisyX import app
 
-@app.on_message(Filters.regex("^.alive"))
+@app.on_message(filters.regex("^.alive"))
 def amialivedad(event):
     chat = event.chat.id 
     message = " Master ! I am alive :)"
