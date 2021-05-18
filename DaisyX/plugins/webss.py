@@ -2,7 +2,7 @@ from pyrogram import filters
 
 from DaisyX import app, command
 
-@app.on_message(filters.command("webss"))
+@app.on_message(filters.command("webss") & filters.me)
 async def take_ss(_, message):
     try:
         if len(message.command) != 2:
