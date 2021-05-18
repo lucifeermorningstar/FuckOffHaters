@@ -3,10 +3,10 @@
 from datetime import datetime
 from pyrogram import filters
 
-from DaisyX import SkemX, StartTime
+from DaisyX import SkemX, StartTime, app, command
 
-@SkemX.on_message(filters.command("alive", ".") & filters.me)
-async def alive(app, message):
+@app.on_message(command("alive") & filters.me)
+async def alive(_, message):
     txt = (
         f"**ᴅᴀɪsʏ χ** ɪs ᴡᴏʀᴋɪɴɢ ᴘʀᴏᴘᴇʀʟʏ\n"
         f"==>> sᴛᴀʀᴛ ᴛɪᴍᴇ: `{str(datetime.now() - StartTime).split('.')[0]}`\n"
@@ -14,4 +14,4 @@ async def alive(app, message):
         f"==>> ᴘʏᴛʜᴏɴ ᴠᴇʀsɪᴏɴ: `𝟹.𝟿.𝟻`\n"
         f"==>> ᴘʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: `𝟷.𝟸.𝟿`"
     )
-    await message.edit(txt)
+    await message.edit_text(txt)
