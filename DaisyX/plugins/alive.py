@@ -1,8 +1,10 @@
 # (c) Copyright 2021-2022 by lucifeermorningstar@GitHub , < https://github.com/lucifeermorningstar >
 
+from datetime import datetime
 from pyrogram import filters
-from DaisyX import app, __version__
 from platform import python_version
+
+from DaisyX import app, __version__
 
 @app.on_message(filters.command("alive", ".") & filters.me)
 async def alive(app, message):
