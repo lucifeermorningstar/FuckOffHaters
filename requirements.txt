@@ -2,4 +2,4 @@
 pyrogram
 TgCrypto
 requests
-psutils
+psutil
