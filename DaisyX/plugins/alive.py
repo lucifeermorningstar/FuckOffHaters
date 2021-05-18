@@ -1,4 +1,4 @@
-from pyrogram import Filters
+from pyrogram import filters
 from DaisyX import app
 
 @app.on_message(Filters.regex("^.alive"))
