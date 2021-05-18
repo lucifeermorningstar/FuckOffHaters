@@ -8,8 +8,6 @@ import logging
 from pyrogram import Client
 from datetime import datetime
 from logging.handlers import TimedRotatingFileHandler
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-
 
 
 # General Details
@@ -102,9 +100,6 @@ class SkemX(Client):
 
         os.execl(sys.executable, sys.executable, "-m", self.__class__.__name__.lower())
         sys.exit()
-
-# Scheduler
-scheduler = AsyncIOScheduler()
 
 # Global Variables
 CMD_HELP = {}
