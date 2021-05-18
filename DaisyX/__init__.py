@@ -18,7 +18,7 @@ API_HASH = os.environ.get("API_HASH", None)
 SESSION = os.environ.get("SESSION", None) 
 
 # StartTime
-StartTime = time.time()
+StartTime = datetime.now()
 
 # Pyrogram Clients
 app = Client(
