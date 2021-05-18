@@ -25,7 +25,7 @@ app = Client(
       api_hash=API_HASH,
       sleep_threshold=180,
 )
-
+'''
 assist = Client(
         "MyAssistant",
         api_id=API_ID,
@@ -33,7 +33,7 @@ assist = Client(
         bot_token=TOKEN,
         sleep_threshold=180,
     )
-
+'''
 # Global Variables
 CMD_HELP = {}
 client = None
