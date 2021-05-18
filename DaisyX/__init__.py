@@ -1,4 +1,5 @@
 import os
+import pathlib
 import logging
 
 from pyrogram import Client
@@ -35,4 +36,26 @@ CMD_HELP = {}
 # Extras
 version = S.0.1
 
+# Enable Logging in Pyrogram
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - [DAISYXUB] - %(levelname)s - %(message)s",
+)
+logging.getLogger("pyrogram").setLevel(logging.ERROR)
+logging.getLogger("apscheduler").setLevel(logging.ERROR)
 
+# Modules Loading
+class DaisyX(Client):
+    file_path = pathlib.Path(__file__).parent
+    main_directory = str(file_path.parent)
+    def __init__(self, name):
+        name = name.lower()
+
+        super().__init__(
+            SESSION,# if SESSION is not None else name,
+            api_id=API_ID,
+            api_hash=API_HASH,
+            plugins=dict(root=f"{name}/plugins"),
+            workdir="./",
+            app_version="DaisyX S.0.1",
+        )
