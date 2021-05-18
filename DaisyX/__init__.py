@@ -1,3 +1,6 @@
+# (c) copyright 2021-2022 by lucifeermorningstar@GitHub , < https://github.com/lucifeermorningstar >
+# Special Thanks To Ak Hacker who Helped me in This. 
+
 import os
 import pathlib
 import logging
