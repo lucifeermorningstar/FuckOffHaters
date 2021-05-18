@@ -7,6 +7,7 @@ import logging
 
 from pyrogram import Client
 from datetime import datetime
+from functools import partial
 from logging.handlers import TimedRotatingFileHandler
 
 
@@ -107,3 +108,6 @@ client = None
 name = "daisyx"
 SkemX = SkemX(__version__)
 
+# Command Manager
+PREFIX = [".", "!", "?"]
+command = partial(filters.command, prefixes=PREFIX)
