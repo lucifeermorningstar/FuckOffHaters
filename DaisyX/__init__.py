@@ -34,12 +34,6 @@ assist = Client(
         sleep_threshold=180,
     )
 '''
-# Global Variables
-CMD_HELP = {}
-client = None
-name = "daisyx"
-SkemX = SkemX(name)
-
 # Extras
 version = "S.0.1"
 
@@ -67,4 +61,9 @@ class SkemX(Client):
             app_version="DaisyX S.0.1",
         )
 
+# Global Variables
+CMD_HELP = {}
+client = None
+name = "daisyx"
+SkemX = SkemX(name)
 
