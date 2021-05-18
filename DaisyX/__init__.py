@@ -39,7 +39,7 @@ assist = Client(
 # Extras
 __version__ = "S.0.1"
 
-# Logging at the start to catch everything
+# Logging at the start to catch everything From PaperPlane
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.WARNING,
@@ -56,7 +56,7 @@ logging.basicConfig(
 )
 LOGS = logging.getLogger(__name__)
 
-# Modules Loading
+# Modules Loading From PaperLane
 class SkemX(Client):
     file_path = pathlib.Path(__file__).parent
     main_directory = str(file_path.parent)
