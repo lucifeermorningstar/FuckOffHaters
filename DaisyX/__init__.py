@@ -5,7 +5,7 @@ import os
 import pathlib
 import logging
 
-from pyrogram import Client
+from pyrogram import Client, filters
 from datetime import datetime
 from functools import partial
 from logging.handlers import TimedRotatingFileHandler
