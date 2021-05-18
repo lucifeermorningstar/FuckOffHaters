@@ -67,7 +67,7 @@ class SkemX(Client):
             SESSION,# if SESSION is not None else name,
             api_id=API_ID,
             api_hash=API_HASH,
-            plugins=dict(root=f"{name}/plugins"),
+            plugins=dict(root=f"DaisyX/plugins"),
             workdir="./",
             app_version="DaisyX S.0.1",
         )
