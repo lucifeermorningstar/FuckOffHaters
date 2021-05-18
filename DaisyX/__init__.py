@@ -33,7 +33,8 @@ assist = Client(
 # Global Variables
 CMD_HELP = {}
 client = None
-SkemX = SkemX("DaisyX")
+name = "daisyx"
+SkemX = SkemX(name)
 
 # Extras
 version = "S.0.1"
