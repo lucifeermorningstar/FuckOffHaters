@@ -1,6 +1,7 @@
 from re import escape, sub, search as resr
 from os import remove
 import os
+from typing import Any, Dict
 
 from pyrogram.types import Message, Chat
 from DaisyX import PREFIX, app
