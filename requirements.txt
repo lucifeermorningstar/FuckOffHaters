@@ -11,3 +11,4 @@ telegraph
 Skem
 pykeyboard
 motor
+dnspython
