@@ -42,7 +42,7 @@ assist = Client(
 app.start() 
 
 # Skem For Greeting
-WELCOME_DELAY_KICK_SEC = WELCOME_DELAY_KICK_SEC
+WELCOME_DELAY_KICK_SEC = 2
 
 # MongoDB client
 print("[INFO]: LOADING MONGODB")
