@@ -1,8 +1,15 @@
 import os
-
 from pyrogram import filters
+from carbonnow import Carbon
 
 from DaisyX import app
+
+# functions for this plugin
+
+async def make_carbon(code):
+    carbon = Carbon(code=code)
+    image = await carbon.save(str(randint(1000, 10000)))
+    return image
 
 @app.on_message(command("carbon") & filters.me)
 async def carbon_func(_, message):
