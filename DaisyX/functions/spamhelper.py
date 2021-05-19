@@ -1,10 +1,15 @@
-from re import escape, sub
+from re import escape, sub, search as resr
+from os import remove
+import os
 
 from pyrogram.types import Message, Chat
 from DaisyX import PREFIX, app
 
 MARKDOWN_FIX_CHAR = '\u2064'
 SPAM_COUNT = [0]
+_LOG_ID = environ.get('LOG_ID', None)
+LOG_ID = int(_LOG_ID) if _LOG_ID and resr(r'^-?\d+$', _LOG_ID) else None
+del _LOG_ID
 _parsed_prefix = escape(PREFIX) if PREFIX else r'\.'
 _admin_status_list = ['creator', 'administrator']
 TEMP_SETTINGS: Dict[Any, Any] = {}
@@ -199,3 +204,12 @@ def send_doc(client, chat, doc, caption='', fix_markdown=False):
         )
     except BaseException:
         pass
+
+def send_log(text, fix_markdown=False):
+    send(app, LOG_ID or 'me', text, fix_markdown=fix_markdown)
+
+
+def send_log_doc(doc, caption='', fix_markdown=False, remove_file=False):
+    send_doc(app, LOG_ID or 'me', doc, caption=caption, fix_markdown=fix_markdown)
+    if remove_file:
+        remove(doc)
