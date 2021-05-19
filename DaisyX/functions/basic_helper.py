@@ -2,6 +2,11 @@
 from random import randint
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
+from DaisyX import db
+
+welcomedb = db.welcome_text
+captcha_cachedb = db.captcha_cache
+
 chat_filters_group = 1
 chatbot_group = 2
 karma_positive_group = 3
@@ -12,6 +17,65 @@ antiflood_group = 7
 nsfw_detect_group = 8
 blacklist_filters_group = 9
 pipes_group = 10
+
+# Captcha
+
+async def is_captcha_on(chat_id: int) -> bool:
+    chat = await captchadb.find_one({"chat_id": chat_id})
+    if not chat:
+        return True
+    return False
+
+
+async def captcha_on(chat_id: int):
+    is_captcha = await is_captcha_on(chat_id)
+    if is_captcha:
+        return
+    return await captchadb.delete_one({"chat_id": chat_id})
+
+
+async def captcha_off(chat_id: int):
+    is_captcha = await is_captcha_on(chat_id)
+    if not is_captcha:
+        return
+    return await captchadb.insert_one({"chat_id": chat_id})
+
+""" CAPTCHA CACHE SYSTEM """
+
+
+async def update_captcha_cache(captcha_dict):
+    pickle = obj_to_str(captcha_dict)
+    await captcha_cachedb.delete_one({"captcha": "cache"})
+    if not pickle:
+        return
+    await captcha_cachedb.update_one(
+        {"captcha": "cache"}, {"$set": {"pickled": pickle}}, upsert=True
+    )
+
+
+async def get_captcha_cache():
+    cache = await captcha_cachedb.find_one({"captcha": "cache"})
+    if not cache:
+        return []
+    return str_to_obj(cache["pickled"])
+
+
+""" WELCOME FUNCTIONS """
+
+
+async def get_welcome(chat_id: int) -> str:
+    text = await welcomedb.find_one({"chat_id": chat_id})
+    return text["text"]
+
+
+async def set_welcome(chat_id: int, text: str):
+    return await welcomedb.update_one(
+        {"chat_id": chat_id}, {"$set": {"text": text}}, upsert=True
+    )
+
+
+async def del_welcome(chat_id: int):
+    return await welcomedb.delete_one({"chat_id": chat_id})
 
 def generate_captcha():
     # Generate one letter
