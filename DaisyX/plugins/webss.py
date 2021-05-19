@@ -1,4 +1,5 @@
 # (c) Copyright 2021 By TheHamkerCat
+# Only For Private Use 
 
 from pyrogram import filters
 
