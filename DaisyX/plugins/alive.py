@@ -3,9 +3,9 @@
 from datetime import datetime
 from pyrogram import filters
 
-from DaisyX import app, StartTime, command
+from DaisyX import SkemX, StartTime, command
 
-@app.on_message(command("alive") & filters.me)
+@SkemX.on_message(command("alive") & filters.me)
 async def alive(_, message):
     txt = (
         f"**ᴅᴀɪsʏ χ** ɪs ᴡᴏʀᴋɪɴɢ ᴘʀᴏᴘᴇʀʟʏ\n"
