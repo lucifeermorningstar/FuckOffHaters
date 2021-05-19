@@ -1,3 +1,6 @@
+# (c) Copyright 2021-2022 by MaskedVirus
+# Made by Swanit (@MaskedVirus) 
+
 import os
 
 from pyrogram import filters
