@@ -16,7 +16,7 @@ def globals_init():
     except Exception as e:
         sql = None
         sql2 = None
-        LOGS.warn(get_translation('globalsSqlLog'))
+        LOGS.warn("**Unable to run GBan and GMute command, no SQL connection found**")
         raise e
 
 
@@ -27,18 +27,18 @@ globals_init()
 def gban_user(client, message):
     args = extract_args(message)
     reply = message.reply_to_message
-    edit(message, f'`{get_translation("banProcess")}`')
+    edit(message, f'`**Whacking the pest!**`')
     if args:
         try:
             user = client.get_users(args)
         except Exception:
-            edit(message, f'`{get_translation("banFailUser")}`')
+            edit(message, f'`**Please specify a valid user!**`')
             return
     elif reply:
         user_id = reply.from_user.id
         user = client.get_users(user_id)
     else:
-        edit(message, f'`{get_translation("banFailUser")}`')
+        edit(message, f'`**Please specify a valid user!**`')
         return
 
     try:
