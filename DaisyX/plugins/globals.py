@@ -51,7 +51,7 @@ def gban_user(client, message):
     if user.id in BRAIN:
         return edit(
             message,
-                "%1Error!%1\n%2[%3](tg://user?id=%4)%2 %1is DaisyX admin..\nSo I can't do this.%1", ['`', '**', user.first_name, user.id]),
+                "%1Error!%1\n%2[%3](tg://user?id=%4)%2 %1is DaisyX admin..\nSo I can't do this.%1", ['`', '**', user.first_name, user.id],
         )
 
     try:
