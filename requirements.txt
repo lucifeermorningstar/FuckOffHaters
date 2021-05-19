@@ -1,5 +1,7 @@
 # General Requirements
-pyrogram
+pyrogram==1.2.9
 TgCrypto
-requests
+
+#others
 psutil
+carbonnow
