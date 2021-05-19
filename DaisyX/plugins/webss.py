@@ -3,9 +3,9 @@
 
 from pyrogram import filters
 
-from DaisyX import app, command
+from DaisyX import SkemX, command
 
-@app.on_message(command("webss") & filters.me)
+@SkemX.on_message(command("webss") & filters.me)
 async def take_ss(_, message):
     try:
         if len(message.command) != 2:
@@ -15,7 +15,7 @@ async def take_ss(_, message):
         m = await message.reply_text("**Taking Screenshot**")
         await m.edit("**Uploading**")
         try:
-            await app.send_photo(
+            await SkemX.send_photo(
                 message.chat.id,
                 photo=f"https://webshot.amanoteam.com/print?q={url}",
             )
