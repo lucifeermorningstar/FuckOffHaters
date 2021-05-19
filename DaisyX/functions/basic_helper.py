@@ -8,6 +8,7 @@ from DaisyX import db
 welcomedb = db.welcome_text
 captcha_cachedb = db.captcha_cache
 gbansdb =  db.gban
+captchadb = db.captcha
 
 chat_filters_group = 1
 chatbot_group = 2
