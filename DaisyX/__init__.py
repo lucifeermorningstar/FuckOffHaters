@@ -41,6 +41,9 @@ assist = Client(
 '''
 app.start() 
 
+# Skem For Greeting
+WELCOME_DELAY_KICK_SEC = WELCOME_DELAY_KICK_SEC
+
 # MongoDB client
 print("[INFO]: LOADING MONGODB")
 mongo_client = MongoClient(MONGO_DB_URI)
