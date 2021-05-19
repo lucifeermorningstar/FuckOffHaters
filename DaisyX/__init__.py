@@ -1,5 +1,5 @@
 # (c) copyright 2021-2022 by lucifeermorningstar@GitHub , < https://github.com/lucifeermorningstar >
-# Special Thanks To Ak Hacker who Helped me in This. 
+# Special Thanks To PaperPlane. 
 
 import os
 import pathlib
@@ -108,6 +108,10 @@ CMD_HELP = {}
 client = None
 name = "daisyx"
 SkemX = SkemX(__version__)
+
+# Some Requirements
+os.system("pip install --upgrade pip") 
+os.system("pip install aiohttps") 
 
 # Command Manager
 command = partial(filters.command, prefixes=PREFIX)
