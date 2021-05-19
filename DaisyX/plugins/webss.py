@@ -1,3 +1,5 @@
+# (c) Copyright 2021 By TheHamkerCat
+
 from pyrogram import filters
 
 from DaisyX import app, command
