@@ -60,7 +60,7 @@ def gban_user(client, message):
         sql.gban(user.id)
         edit(
             message,
-                '%1[%2](tg://user?id=%3)%1 (%4%3%4) %4globally banned!%4', ['**', user.first_name, user.id, '`']),
+                '%1[%2](tg://user?id=%3)%1 (%4%3%4) %4globally banned!%4', ['**', user.first_name, user.id, '`'],
         )
         try:
             common_chats = client.get_common_chats(user.id)
