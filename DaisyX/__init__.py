@@ -26,7 +26,6 @@ app = Client(
       session_name=SESSION,
       api_id=API_ID,
       api_hash=API_HASH,
-      sleep_threshold=180,
 )
 '''
 assist = Client(
