@@ -1,6 +1,7 @@
 import os
 from pyrogram import filters
 from carbonnow import Carbon
+from random import randint
 
 from DaisyX import app, command
 
