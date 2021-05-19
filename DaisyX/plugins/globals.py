@@ -44,7 +44,7 @@ def gban_user(client, message):
     try:
         replied_user = reply.from_user
         if replied_user.is_self:
-            return edit(message, f'`Calm down, You can't ban yourself.`')
+            return edit(message, f'`Calm down, You can\'t ban yourself.`')
     except BaseException:
         pass
 
