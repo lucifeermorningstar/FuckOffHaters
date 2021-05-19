@@ -3,11 +3,12 @@ import asyncio
 from pyrogram import filters
 from pyrogram.types import ChatPermissions
 
-from DaisyX import BOT_ID, SkemX as app
+from DaisyX import SkemX as app
 from Skem import skemmers as SUDOERS
-from wbb.functions.basic_helper import (add_warn, get_warn, int_to_alpha,
+from DaisyX.functions.basic_helper import (add_warn, get_warn, int_to_alpha,
                                    remove_warns)
 
+BOT_ID = 0
 
 async def list_admins(chat_id: int):
     list_of_admins = []
