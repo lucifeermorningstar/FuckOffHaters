@@ -10,6 +10,7 @@ from pyromod import listen
 from datetime import datetime
 from functools import partial
 from logging.handlers import TimedRotatingFileHandler
+from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
 
 
 # Config in init as of now
@@ -38,6 +39,11 @@ assist = Client(
     )
 '''
 app.start() 
+
+# MongoDB client
+print("[INFO]: LOADING MONGODB")
+mongo_client = MongoClient(MONGO_DB_URI)
+db = mongo_client.daisyx
 
 listen = listen
 
