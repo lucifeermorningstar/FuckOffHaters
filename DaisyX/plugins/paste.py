@@ -33,7 +33,7 @@ async def paste(_, message: Message):
         )
         if delete:
             await asyncio.gather(
-                UserBot.send_message(
+                SkemX.send_message(
                     message.chat.id, reply_text, disable_web_page_preview=True
                 ),
                 message.reply_to_message.delete(),
