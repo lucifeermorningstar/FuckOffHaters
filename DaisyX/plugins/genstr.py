@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 from pyrogram.errors import (PhoneCodeExpired, PhoneCodeInvalid,
                              PhoneNumberInvalid, SessionPasswordNeeded)
 
-from DaisyX import SkemX as app
+from DaisyX import SkemX as app, command
 from pyromod import listen
 
 """
