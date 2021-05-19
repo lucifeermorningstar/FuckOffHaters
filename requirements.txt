@@ -9,3 +9,5 @@ requests
 pyromod
 telegraph
 Skem
+pykeyboard
+motor
