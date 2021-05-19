@@ -2,7 +2,7 @@ import os
 from pyrogram import filters
 from carbonnow import Carbon
 
-from DaisyX import app
+from DaisyX import app, command
 
 # functions for this plugin
 
