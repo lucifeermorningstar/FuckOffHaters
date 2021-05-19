@@ -7,3 +7,4 @@ psutil
 carbonnow
 requests
 pyromod
+telegraph
