@@ -1,3 +1,5 @@
+# (c) Copyright 2021-2022 by TheHamkerCat
+
 import asyncio
 import os
 from datetime import datetime
