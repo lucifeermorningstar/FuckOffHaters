@@ -12,7 +12,7 @@ from pyrogram.errors.exceptions.bad_request_400 import (ChatAdminRequired,
 from pyrogram.types import (ChatPermissions, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message, User)
 
-from DaisyX import SkemX as app, command
+from DaisyX import SkemX as app, command, WELCOME_DELAY_KICK_SEC 
 from Skem import skemmers as SUDOERS
 from DaisyX.plugins.admin import member_permissions
 from DaisyX.functions.basic_helper import (captcha_off, captcha_on, del_welcome,
@@ -22,7 +22,6 @@ from DaisyX.functions.basic_helper import (captcha_off, captcha_on, del_welcome,
 from DaisyX.functions.basic_helper import welcome_captcha_group
 from DaisyX.functions.basic_helper import generate_captcha
 
-WELCOME_DELAY_KICK_SEC = WELCOME_DELAY_KICK_SEC
 
 answers_dicc = []
 loop = asyncio.get_running_loop()
