@@ -7,7 +7,7 @@ from DaisyX import PREFIX, app
 
 MARKDOWN_FIX_CHAR = '\u2064'
 SPAM_COUNT = [0]
-_LOG_ID = environ.get('LOG_ID', None)
+_LOG_ID = os.environ.get('LOG_ID', None)
 LOG_ID = int(_LOG_ID) if _LOG_ID and resr(r'^-?\d+$', _LOG_ID) else None
 del _LOG_ID
 _parsed_prefix = escape(PREFIX) if PREFIX else r'\.'
