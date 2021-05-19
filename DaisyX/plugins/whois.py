@@ -87,7 +87,7 @@ def ProfilePicUpdate(user_pic):
     return datetime.fromtimestamp(user_pic[0].date).strftime("%d.%m.%Y, %H:%M:%S")
 
 
-@UserBot.on_message(command("whois") & filters.me)) 
+@UserBot.on_message(command("whois") & filters.me)
 async def summon_here(_, message: Message):
     cmd = message.command
     if not message.reply_to_message and len(cmd) == 1:
