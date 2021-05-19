@@ -58,6 +58,67 @@ def edit(message, text, preview=True, fix_markdown=False, parse='md'):
     except BaseException:
         pass
 
+def download_media(client, data, file_name=None, progress=None, sticker_orig=True):
+    if not file_name:
+        if data.document:
+            file_name = (
+                data.document.file_name
+                if data.document.file_name
+                else f'{data.document.file_id}.bin'
+            )
+        elif data.audio:
+            file_name = (
+                data.audio.file_name
+                if data.audio.file_name
+                else f'{data.audio.file_id}.mp3'
+            )
+        elif data.photo:
+            file_name = f'{data.photo.file_id}.png'
+        elif data.voice:
+            file_name = f'{data.voice.file_id}.ogg'
+        elif data.video:
+            file_name = (
+                data.video.file_name
+                if data.video.file_name
+                else f'{data.video.file_id}.mp4'
+            )
+        elif data.animation:
+            file_name = f'{data.animation.file_id}.mp4'
+        elif data.video_note:
+            file_name = f'{data.video_note.file_id}.mp4'
+        elif data.sticker:
+            file_name = f'sticker.{("tgs" if sticker_orig else "json.gz") if data.sticker.is_animated else ("webp" if sticker_orig else "png")}'
+        else:
+            return None
+
+    if progress:
+        return client.download_media(data, file_name=file_name, progress=progress)
+
+    return client.download_media(data, file_name=file_name)
+
+
+def download_media_wc(data, file_name=None, progress=None, sticker_orig=False):
+    return download_media(app, data, file_name, progress, sticker_orig)
+
+
+def get_me():
+    return app.get_me()
+
+
+def forward(message, chat_id):
+    try:
+        return message.forward(chat_id or 'me')
+    except Exception as e:
+        raise e
+
+
+def get_messages(chat_id, msg_ids=None, client=app):
+    try:
+        ret = client.get_messages(chat_id=(chat_id or 'me'), message_ids=msg_ids)
+        return [ret] if ret and isinstance(ret, Message) else ret
+    except BaseException:
+        return []
+
 def amisudo():
     return TEMP_SETTINGS['ME'].id in BRAIN
 
