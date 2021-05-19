@@ -6,6 +6,7 @@ import pathlib
 import logging
 
 from pyrogram import Client, filters
+from pyromod import listen
 from datetime import datetime
 from functools import partial
 from logging.handlers import TimedRotatingFileHandler
@@ -37,6 +38,8 @@ assist = Client(
     )
 '''
 app.start() 
+
+listen = listen
 
 # Extras
 __version__ = "S.0.1"
