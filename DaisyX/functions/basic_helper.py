@@ -7,6 +7,7 @@ from DaisyX import db
 
 welcomedb = db.welcome_text
 captcha_cachedb = db.captcha_cache
+gbansdb =  db.gban
 
 chat_filters_group = 1
 chatbot_group = 2
@@ -31,8 +32,13 @@ def str_to_obj(string: str):
     object = pickle.loads(codecs.decode(string.encode(), "base64"))
     return object
 
+#Gban
 
-
+async def is_gbanned_user(user_id: int) -> bool:
+    user = await gbansdb.find_one({"user_id": user_id})
+    if not user:
+        return False
+    return True
 
 # Captcha
 
