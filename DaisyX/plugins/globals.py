@@ -60,8 +60,7 @@ def gban_user(client, message):
         sql.gban(user.id)
         edit(
             message,
-            get_translation(
-                'gbanResult', ['**', user.first_name, user.id, '`']),
+                '%1[%2](tg://user?id=%3)%1 (%4%3%4) %4globally banned!%4', ['**', user.first_name, user.id, '`']),
         )
         try:
             common_chats = client.get_common_chats(user.id)
@@ -70,12 +69,12 @@ def gban_user(client, message):
         except BaseException:
             pass
         sleep(1)
-        send_log(get_translation('gbanLog', [user.first_name, user.id]))
+        send_log(('#GBAN\nUSER: [%1](tg://user?id=%2)', [user.first_name, user.id])) 
     except Exception as e:
-        edit(message, get_translation('banError', ['`', '**', e]))
+        edit(message, ('%1Something went wrong!%1\n\n%2%3%2', ['`', '**', e]))
         return
 
-
+'''
 @daisy(pattern='^.(ung|gun)ban', compat=False)
 def ungban_user(client, message):
     args = extract_args(message)
@@ -298,5 +297,5 @@ def gmute_check(client, message):
             pass
 
     message.continue_propagation()
-
+'''
 
