@@ -1,7 +1,7 @@
 from time import sleep
 
 from pyrogram.types import ChatPermissions
-from DaisyX LOGS
+from DaisyX import LOGS
 from DaisyX.functions.spamhelper import edit, TEMP_SETTINGS, extract_args, daisy, send_log
 
 BRAIN = []
