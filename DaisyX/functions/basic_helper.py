@@ -1,4 +1,5 @@
-
+import pickle
+import codecs
 from random import randint
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -17,6 +18,21 @@ antiflood_group = 7
 nsfw_detect_group = 8
 blacklist_filters_group = 9
 pipes_group = 10
+
+
+def obj_to_str(object):
+    if not object:
+        return False
+    string = codecs.encode(pickle.dumps(object), "base64").decode()
+    return string
+
+
+def str_to_obj(string: str):
+    object = pickle.loads(codecs.decode(string.encode(), "base64"))
+    return object
+
+
+
 
 # Captcha
 
