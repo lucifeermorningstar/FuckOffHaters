@@ -74,3 +74,29 @@ def parse_cmd(text):
     cmd = cmd.split(_parsed_prefix)[-1] if PREFIX else cmd[1:]
     return cmd
 
+def get_cmd(message):
+    text = message.text or message.caption
+    if text:
+        text = text.strip()
+        return parse_cmd(text)
+    return ''
+
+def daisy(**args):
+    pattern = args.get('pattern', None)
+    outgoing = args.get('outgoing', True)
+    incoming = args.get('incoming', False)
+    disable_edited = args.get('disable_edited', False)
+    disable_notify = args.get('disable_notify', False)
+    compat = args.get('compat', True)
+    brain = args.get('brain', False)
+    private = args.get('private', True)
+    group = args.get('group', True)
+    bot = args.get('bot', True)
+    service = args.get('service', False)
+    admin = args.get('admin', False)
+
+    if pattern and '.' in pattern[:2]:
+        args['pattern'] = pattern = pattern.replace('.', _parsed_prefix, 1)
+
+    if pattern and pattern[-1:] != '$':
+        args['pattern'] = pattern = f'{pattern}(?: |$)'
