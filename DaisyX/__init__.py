@@ -49,6 +49,25 @@ print("[INFO]: LOADING MONGODB")
 mongo_client = MongoClient(MONGO_DB_URI)
 db = mongo_client.daisyx
 
+# Postgresql Client
+
+DB_AVAIABLE = False
+
+# Postgresql
+def mulaisql() -> scoped_session:
+	global DB_AVAIABLE
+	engine = create_engine(DATABASE_URL, client_encoding="utf8")
+	BASE.metadata.bind = engine
+	try:
+		BASE.metadata.create_all(engine)
+	except exc.OperationalError:
+		DB_AVAIABLE = False
+		return False
+	DB_AVAIABLE = True
+	return scoped_session(sessionmaker(bind=engine, autoflush=False))
+
+
+
 listen = listen
 
 # Extras
