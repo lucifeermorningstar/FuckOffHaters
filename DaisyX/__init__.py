@@ -12,10 +12,6 @@ from functools import partial
 from logging.handlers import TimedRotatingFileHandler
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
 
-from sqlalchemy import create_engine, exc
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, scoped_session
-from sqlalchemy import func, distinct, Column, String, UnicodeText, Integer
 
 # Config in init as of now
 API_ID = os.environ.get("API_ID", None) 
@@ -52,27 +48,6 @@ WELCOME_DELAY_KICK_SEC = 60
 print("[INFO]: LOADING MONGODB")
 mongo_client = MongoClient(MONGO_DB_URI)
 db = mongo_client.daisyx
-
-# Postgresql Client
-
-DB_AVAIABLE = False
-
-# Postgresql
-def mulaisql() -> scoped_session:
-	global DB_AVAIABLE
-	engine = create_engine(DATABASE_URL, client_encoding="utf8")
-	BASE.metadata.bind = engine
-	try:
-		BASE.metadata.create_all(engine)
-	except exc.OperationalError:
-		DB_AVAIABLE = False
-		return False
-	DB_AVAIABLE = True
-	return scoped_session(sessionmaker(bind=engine, autoflush=False))
-
-BASE = declarative_base()
-SESSION = mulaisql()
-
 
 listen = listen
 
