@@ -43,11 +43,11 @@ app.start()
 
 # Skem For Greeting
 WELCOME_DELAY_KICK_SEC = 60
-
+'''
 # MongoDB client
 print("[INFO]: LOADING MONGODB")
 mongo_client = MongoClient(MONGO_DB_URI)
-db = mongo_client.daisyx
+db = mongo_client.daisyx'''
 
 listen = listen
 
