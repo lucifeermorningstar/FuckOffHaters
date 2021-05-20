@@ -6,18 +6,8 @@ from pyrogram.raw import functions
 from pyrogram.types import Message, User
 from pyrogram.errors import PeerIdInvalid
 
-from DaisyX import SkemX as UserBot, command
-
-def ReplyCheck(message: Message):
-    reply_id = None
-
-    if message.reply_to_message:
-        reply_id = message.reply_to_message.message_id
-
-    elif not message.from_user.is_self:
-        reply_id = message.message_id
-
-    return reply_id
+from DaisyX import SkemX as UserBot
+from DaisyX.functions.PyroHelpers import ReplyCheck
 
 WHOIS = (
     '**WHO IS "{full_name}"?**\n'
@@ -87,7 +77,7 @@ def ProfilePicUpdate(user_pic):
     return datetime.fromtimestamp(user_pic[0].date).strftime("%d.%m.%Y, %H:%M:%S")
 
 
-@UserBot.on_message(command("whois") & filters.me)
+@UserBot.on_message(filters.command("whois", [".", ""]) & filters.me)
 async def summon_here(_, message: Message):
     cmd = message.command
     if not message.reply_to_message and len(cmd) == 1:
@@ -144,7 +134,6 @@ async def summon_here(_, message: Message):
                 profile_pic_update=ProfilePicUpdate(user_pic),
             ),
             reply_to_message_id=ReplyCheck(message),
-            file_ref=user_pic[0].file_ref,
         )
         await message.delete()
 
