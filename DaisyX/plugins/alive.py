@@ -2,6 +2,7 @@
 
 from datetime import datetime
 from pyrogram import filters
+from pyrogram.types import Message
 
 from DaisyX import SkemX, StartTime, command
 
@@ -15,3 +16,12 @@ async def alive(_, message):
         f"==>> ᴘʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ: `𝟷.𝟸.𝟿`"
     )
     await message.edit_text(txt)
+
+
+@SkemX.on_message(command("ping") & filters.me)
+async def ping_me(_, message: Message):
+    """Ping the assistant"""
+    start = time.time()
+    reply = await message.reply_text("...")
+    delta_ping = time.time() - start
+    await reply.edit_text(f"**♪•••Pong!•••♪**\n==>Ping:`{delta_ping * 1000:.3f} ms`")
