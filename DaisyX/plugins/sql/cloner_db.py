@@ -1,6 +1,6 @@
 import threading
 
-from DaisyX import BASE, SESSION
+from DaisyX.plugins.sql import BASE, SESSION
 from sqlalchemy import Column, String, Boolean, UnicodeText
 
 Owner = 0
