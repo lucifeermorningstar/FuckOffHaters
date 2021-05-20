@@ -3,7 +3,9 @@ import pyrogram
 import math
 
 from pyrogram.api import functions
-from DaisyX import SkemX as app, command, DB_AVAIABLE
+from DaisyX import SkemX as app, command
+
+DB_AVAIABLE = False
 
 from pyrogram import filters
 if DB_AVAIABLE:
