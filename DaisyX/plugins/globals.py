@@ -17,7 +17,7 @@ def globals_init():
         sql = None
         sql2 = None
         LOGS.warn("**Unable to run GBan and GMute command, no SQL connection found**")
-        raise e
+        raise 
 
 
 globals_init()
