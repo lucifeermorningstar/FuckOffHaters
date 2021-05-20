@@ -12,6 +12,10 @@ from functools import partial
 from logging.handlers import TimedRotatingFileHandler
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
 
+from sqlalchemy import create_engine, exc
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy import func, distinct, Column, String, UnicodeText, Integer
 
 # Config in init as of now
 API_ID = os.environ.get("API_ID", None) 
@@ -66,6 +70,8 @@ def mulaisql() -> scoped_session:
 	DB_AVAIABLE = True
 	return scoped_session(sessionmaker(bind=engine, autoflush=False))
 
+BASE = declarative_base()
+SESSION = mulaisql()
 
 
 listen = listen
