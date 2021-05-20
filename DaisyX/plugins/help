@@ -1,7 +1,8 @@
 from collections import OrderedDict
 
-from DaisyX.functions import edit, extract_args, get_translation, reply, sedenify
+from DaisyX.functions import edit, extract_args, reply, daisy
 
+HELP: Dict[str, str] = {}
 
 @daisy(pattern='^.help')
 def sed(message):
