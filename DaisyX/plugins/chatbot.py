@@ -1,3 +1,5 @@
+from inspect import getfullargspec
+
 from pyrogram import filters
 from pyrogram.types import Message
 
