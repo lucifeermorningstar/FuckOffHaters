@@ -4,7 +4,7 @@ from functools import partial
 from pyrogram import filters
 from pyrogram.types import Message
 
-from DaisyX import SkemX as UserBot
+from DaisyX import SkemX as UserBot, command
 
 mention = partial("<a href='tg://user?id={}'>{}</a>".format)
 
