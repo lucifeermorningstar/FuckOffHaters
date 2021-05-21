@@ -454,21 +454,3 @@ async def ban_deleted_accounts(_, message):
     except Exception as e:
         await message.reply_text(str(e))
         print(str(e))
-
-# Report
-
-
-@app.on_message(
-    filters.command(["report", "admins"], prefixes=["@", "/"])
-    & ~filters.edited
-)
-async def report_user(_, message):
-    if not message.reply_to_message:
-        await message.reply_text("Reply to a message to report user.")
-        return
-    list_of_admins = await list_admins(message.chat.id)
-    user_mention = message.reply_to_message.from_user.mention
-    text = f"Reported {user_mention} to admins."
-    for admin in list_of_admins:
-        text += f"[\u2063](tg://user?id={admin})"
-    await message.reply_text(text)
