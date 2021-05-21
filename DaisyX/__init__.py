@@ -2,7 +2,6 @@
 # Special Thanks To PaperPlane. 
 
 import os
-import ast
 import pathlib
 import logging
 
@@ -25,10 +24,6 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 MONGO_DB_URI = os.environ.get(" MONGO_DB_URI") 
 SUDO_USERS = os.environ.get(" SUDO_USERS") 
 
-# Other Users
-ALLOWED_USERS = ast.literal_eval(
-    config.get("users", "allowed_users", fallback="[]")
-)
 
 # StartTime
 StartTime = datetime.now()
