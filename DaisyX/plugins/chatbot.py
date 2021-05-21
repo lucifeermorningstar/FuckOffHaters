@@ -1,5 +1,5 @@
 from pyrogram import filters
-from pyrogram.errors import Message
+from pyrogram.types import Message
 
 from DaisyX import command, SkemX as app2, arq
 from Skem import skemmers as SUDOERS
