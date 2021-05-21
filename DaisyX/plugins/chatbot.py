@@ -5,7 +5,6 @@ from Skem import skemmers as SUDOERS
 from DaisyX.functions.basic_helpers import edit_or_reply
 
 # Filter Groups
-chat_filters_group = 1
 chatbot_group = 2
 
 USERBOT_ID = 0
