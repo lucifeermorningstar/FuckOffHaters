@@ -1,8 +1,8 @@
 from pyrogram import filters
+from pyrogram.errors import Message
 
 from DaisyX import command, SkemX as app2, arq
 from Skem import skemmers as SUDOERS
-from DaisyX.functions.basic_helpers import edit_or_reply
 
 # Filter Groups
 chatbot_group = 2
@@ -13,6 +13,11 @@ USERBOT_USERNAME = "DaisyXBot"
 
 active_chats_bot = []
 active_chats_ubot = []
+
+async def edit_or_reply(msg: Message, **kwargs):
+    func = msg.edit_text if msg.from_user.is_self else msg.reply
+    spec = getfullargspec(func.__wrapped__).args
+    await func(**{k: v for k, v in kwargs.items() if k in spec})
 
 @app2.on_message(
     command("chatbot")
