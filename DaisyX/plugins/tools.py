@@ -1,6 +1,6 @@
 from pyrogram.errors import BadRequest
 from pyrogram import filters
-from DaisyX import SkemX as UserBot
+from DaisyX import SkemX as UserBot, command
 from DaisyX.functions.PyroHelpers import GetChatID
 import time
 import os
@@ -8,7 +8,7 @@ from pathlib import Path
 import sys
 from shutil import copyfile
 
-@UserBot.on_message(filters.me & filters.text & filters.command("sendall","."))
+@UserBot.on_message(filters.me & filters.text & command("sendall"))
 async def send_all(client, message):
     cmd = message.command
     try:
@@ -22,7 +22,7 @@ async def send_all(client, message):
         await client.send_message(message.chat['id'],reply_to_message_id=int(message.message_id),text="sendall error : " + str(error))
 
 
-@UserBot.on_message(filters.me & filters.text & filters.command("getchats","."))
+@UserBot.on_message(filters.me & filters.text & command("getchats"))
 async def getchats(client, message):
     cmd = message.command
     async for d in client.iter_dialogs():
@@ -32,21 +32,21 @@ async def getchats(client, message):
             continue
 
 
-@UserBot.on_message(filters.me & filters.text & filters.command("load_plugin","."))
+@UserBot.on_message(filters.me & filters.text & command("load_plugin"))
 async def plugin_add(client, message):
     cmd = message.command
     try:
         if len(cmd) > 1:
             filename = cmd[1]
-            downloads_dir = str(UserBot.WORKDIR) + "/userbot/downloads"
-            plugins_dir = str(UserBot.WORKDIR) + "/userbot/plugins"
+            downloads_dir = str(UserBot.WORKDIR) + "/DaisyX/downloads"
+            plugins_dir = str(UserBot.WORKDIR) + "/DaisyX/plugins"
             copyfile(f"{downloads_dir}/{filename}",f"{plugins_dir}/{filename}")
             await client.send_message(message.chat['id'],"restart bot to load plugin command : .restart")
     except Exception as error:
         await client.send_message(message.chat['id'],"loading_plugin error : " + str(error))
 
 
-@UserBot.on_message(filters.me & filters.text & filters.command("hi","."))
+@UserBot.on_message(filters.me & filters.text & command("hi"))
 async def hi(client, message):
     await message.edit("""
     🌺✨✨🌺✨🌺🌺🌺
@@ -57,7 +57,7 @@ async def hi(client, message):
 ☁️☁️☁️☁️☁️☁️☁️☁️
     """)
 
-@UserBot.on_message(filters.me & filters.text & filters.command("sendgroup","."))
+@UserBot.on_message(filters.me & filters.text & command("sendgroup"))
 async def send_group(client, message):
     cmd = message.command
     msg = cmd[1]
@@ -71,7 +71,7 @@ async def send_group(client, message):
                 continue
             # print(d.chat.type)
 
-@UserBot.on_message(filters.me & filters.text & filters.command("get_info","."))
+@UserBot.on_message(filters.me & filters.text & command("get_info"))
 async def get_info(client, message):
     cmd = message.command
     if len(cmd) > 1:
@@ -90,7 +90,7 @@ async def get_info(client, message):
             if info.permissions:
                 await client.send_message(chat_id=message.chat["id"], reply_to_message_id=int(message.message_id), text="**permissions**\n"+str(info.permissions))
 
-@UserBot.on_message(filters.me & filters.text & filters.command("gdn","."))
+@UserBot.on_message(filters.me & filters.text & command("gdn"))
 async def goodnight(client, message):
     await message.edit("""
         ｡♥️｡･ﾟ♡ﾟ･｡♥️｡･｡･｡･｡♥️｡･
@@ -101,7 +101,7 @@ async def goodnight(client, message):
 ╰━╯╱╱╱╱╱╱╱╱╱╱╰━╯
 ｡♥️｡･ﾟ♡ﾟ･｡♥️° ♥️｡･ﾟ♡ﾟ
         """)
-@UserBot.on_message(filters.me & filters.text & filters.command("gdm","."))
+@UserBot.on_message(filters.me & filters.text & command("gdm"))
 async def gdm(client, message):
     await message.edit("""
     ｡♥️｡･ﾟ♡ﾟ･｡♥️｡･｡･｡･｡♥️｡･｡♥️｡･ﾟ♡ﾟ･
@@ -113,7 +113,7 @@ async def gdm(client, message):
 ｡♥️｡･ﾟ♡ﾟ･｡♥️｡･｡･｡･｡♥️｡･｡♥️｡･ﾟ♡ﾟ･""")
 
 
-@UserBot.on_message(filters.me & filters.text & filters.command("lol","."))
+@UserBot.on_message(filters.me & filters.text & command("lol"))
 async def lol(client, message):
     await message.edit("😂🤣😂🤣😂🤣😂🤣")
     time.sleep(0.4)
@@ -129,7 +129,7 @@ async def lol(client, message):
 ╱┗━━━┛╰━━━╯┗━━━┛╱
     """)
 
-@UserBot.on_message(filters.me & filters.text & filters.command("download","."))
+@UserBot.on_message(filters.me & filters.text & command("download"))
 async def download(client, message):
     cmd = message.command
     if len(cmd) > 1:
