@@ -1,3 +1,10 @@
+from datetime import datetime
+
+from DaisyX import SkemX as app, command
+from DaisyX.functions.basic_helpers import edit_or_reply, get_text, progress
+
+
+@app.on_message(command("stats") & filters.me) 
 async def stats(client, message):
     pablo = await edit_or_reply(message, f"`Processing...`")
     start = datetime.now()
