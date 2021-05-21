@@ -1,3 +1,4 @@
+from pyrogram.types import Message
 
 from DaisyX import SUDO_USERS as AFS
 
