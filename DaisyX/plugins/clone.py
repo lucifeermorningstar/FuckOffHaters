@@ -2,7 +2,7 @@ import os
 import pyrogram
 import math
 
-from pyrogram.api import functions
+from pyrogram.raw import functions
 from DaisyX import SkemX as app, command
 
 DB_AVAIABLE = False
