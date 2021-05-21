@@ -9,6 +9,7 @@ from pyrogram import Client, filters
 from pyromod import listen
 from datetime import datetime
 from functools import partial
+from Python_ARQ import ARQ
 from logging.handlers import TimedRotatingFileHandler
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
 
@@ -49,6 +50,14 @@ WELCOME_DELAY_KICK_SEC = 60
 print("[INFO]: LOADING MONGODB")
 mongo_client = MongoClient(MONGO_DB_URI)
 db = mongo_client.daisyx
+
+# ARQ Details
+ARQ_API_URL = "thearq.tech"
+ARQ_API_KEY = "WSKVWS-ZOTXYY-UZEAID-VFJFKR-ARQ"
+
+# ARQ client
+print("[INFO]: INITIALIZING ARQ")
+arq = ARQ(ARQ_API_URL, ARQ_API_KEY)
 
 listen = listen
 
