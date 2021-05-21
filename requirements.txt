@@ -12,3 +12,4 @@ Skem
 pykeyboard
 motor
 dnspython
+python-arq
