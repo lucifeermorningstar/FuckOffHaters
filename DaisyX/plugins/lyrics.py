@@ -3,11 +3,10 @@ import asyncio
 from pyrogram import filters
 from pyrogram.types import Message
 
-from DaisyX import SkemX as UserBot, command, ALLOWED_USERS
+from DaisyX import SkemX as UserBot, command
 
-@UserBot.on_message(
-    command(("lyrics") & (filters.me)
-)
+
+@UserBot.on_message( command("lyrics") & filters.me)
 async def send_lyrics(_, message: Message):
     try:
         cmd = message.command
@@ -40,10 +39,10 @@ async def send_lyrics(_, message: Message):
             await asyncio.sleep(3)
 
             # forward from Saved Messages
-            await UserBot.copy_message(
+            await UserBot.forward_messages(
                 chat_id=message.chat.id,
                 from_chat_id="me",
-                message_id=saved.updates[1].message.id,
+                message_ids=saved.updates[1].message.id,
             )
 
             # delete the message from Saved Messages
