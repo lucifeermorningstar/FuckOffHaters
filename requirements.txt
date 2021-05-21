@@ -13,3 +13,4 @@ pykeyboard
 motor
 dnspython
 python-arq
+python-magic
