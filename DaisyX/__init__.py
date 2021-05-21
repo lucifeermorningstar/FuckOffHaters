@@ -29,11 +29,6 @@ TOKEN = os.environ.get("TOKEN")
 StartTime = datetime.now()
 
 # Pyrogram Clients
-app = Client(
-      session_name=SESSION,
-      api_id=API_ID,
-      api_hash=API_HASH,
-)
 
 assist = Client(
         "MyAssistant",
@@ -43,7 +38,6 @@ assist = Client(
         sleep_threshold=180,
     )
 assist.start() 
-app.start() 
 
 # Skem For Greeting
 WELCOME_DELAY_KICK_SEC = 60
