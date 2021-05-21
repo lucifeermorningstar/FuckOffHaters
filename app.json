@@ -29,6 +29,10 @@
             "description": "Get from https://my.telegram.org",
             "value": "Yes"
         },
+        "TOKEN": {
+            "description": "Get it from https://t.me/BotFather", 
+            "value": " Yes"
+        }, 
         "SESSION": {
             "description": "Generate String from Heroku Shell by running 'bash genStr' after you deploy, Set this value later after genrating the string if you dont have. Make sure you choose option 1 since you are here to use it for userbot :)",
             "value": "Yes"
