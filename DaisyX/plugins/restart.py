@@ -10,7 +10,7 @@ from DaisyX import SkemX as app, command
 async def restart(_, message: Message):
     await message.edit(f"Restarting {app.__class__.__name__}.")
     await app.send_message(
-        "me", f"#userbot_restart, {message.chat.id}, {message.message_id}"
+        "me", "••`Restarting DaisyX`•• "
     )
 
     if "p" in message.text and "g" in message.text:
