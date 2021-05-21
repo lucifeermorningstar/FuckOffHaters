@@ -11,7 +11,7 @@ from DaisyX import SkemX as app, command
 from DaisyX.functions.basic_helpers import edit_or_reply, get_text
 
 
-@app.on_message(command("addchannel") & filter.me) 
+@app.on_message(command("addchannel") & filters.me) 
 async def badd(client, message):
     pablo = await edit_or_reply(message, "`Processing..`")
     bd = get_text(message)
