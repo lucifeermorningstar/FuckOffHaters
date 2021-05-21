@@ -21,9 +21,9 @@ API_HASH = os.environ.get("API_HASH", None)
 SESSION = os.environ.get("SESSION", None) 
 PREFIX = os.environ.get("PREFIX", ".") # '.' as default prefix
 DATABASE_URL = os.environ.get("DATABASE_URL")
-MONGO_DB_URI = os.environ.get(" MONGO_DB_URI") 
-SUDO_USERS = os.environ.get(" SUDO_USERS") 
-
+MONGO_DB_URI = os.environ.get("MONGO_DB_URI") 
+SUDO_USERS = os.environ.get("SUDO_USERS") 
+TOKEN = os.environ.get("TOKEN") 
 
 # StartTime
 StartTime = datetime.now()
