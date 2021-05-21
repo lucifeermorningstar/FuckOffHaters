@@ -6,7 +6,7 @@ from pyrogram.types import Message
 from DaisyX import SkemX as UserBot, command
 
 @UserBot.on_message(
-    filters.command(("lyrics") & filters.me)
+    command(("lyrics") & filters.me)
 )
 async def send_lyrics(_, message: Message):
     try:
