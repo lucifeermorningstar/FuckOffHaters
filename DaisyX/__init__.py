@@ -32,7 +32,7 @@ app = Client(
       api_id=API_ID,
       api_hash=API_HASH,
 )
-'''
+
 assist = Client(
         "MyAssistant",
         api_id=API_ID,
@@ -40,7 +40,7 @@ assist = Client(
         bot_token=TOKEN,
         sleep_threshold=180,
     )
-'''
+assist.start() 
 app.start() 
 
 # Skem For Greeting
