@@ -1,11 +1,13 @@
 from pyrogram import filters
 
-from DaisyX import (BOT_ID, USERBOT_ID, command, USERBOT_USERNAME,
-                 app as app2, arq)
+from DaisyX import command, SkemX as app2, arq
 from Skem import skemmers as SUDOERS
 from DaisyX.functions.basic_helpers import edit_or_reply
 from DaisyX.functions.filter_groups import chatbot_group
 
+USERBOT_ID = 0
+BOT_ID = 0
+USERBOT_USERNAME = "DaisyXBot"
 
 active_chats_bot = []
 active_chats_ubot = []
