@@ -10,6 +10,7 @@ from pyromod import listen
 from datetime import datetime
 from functools import partial
 from Python_ARQ import ARQ
+from configparser import ConfigParser
 from logging.handlers import TimedRotatingFileHandler
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
 
@@ -22,6 +23,11 @@ PREFIX = os.environ.get("PREFIX", ".") # '.' as default prefix
 DATABASE_URL = os.environ.get("DATABASE_URL")
 MONGO_DB_URI = os.environ.get(" MONGO_DB_URI") 
 SUDO_USERS = os.environ.get(" SUDO_USERS") 
+
+# Other Users
+ALLOWED_USERS = ast.literal_eval(
+    config.get("users", "allowed_users", fallback="[]")
+)
 
 # StartTime
 StartTime = datetime.now()
