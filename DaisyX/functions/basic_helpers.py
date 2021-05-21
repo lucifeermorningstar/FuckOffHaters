@@ -31,6 +31,35 @@ def get_text(message: Message) -> [None, str]:
     else:
         return None
 
+def humanbytes(size):
+    """Convert Bytes To Bytes So That Human Can Read It"""
+    if not size:
+        return ""
+    power = 2 ** 10
+    raised_to_pow = 0
+    dict_power_n = {0: "", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
+    while size > power:
+        size /= power
+        raised_to_pow += 1
+    return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
+
+
+def time_formatter(milliseconds: int) -> str:
+    """Time Formatter"""
+    seconds, milliseconds = divmod(int(milliseconds), 1000)
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    tmp = (
+        ((str(days) + " day(s), ") if days else "")
+        + ((str(hours) + " hour(s), ") if hours else "")
+        + ((str(minutes) + " minute(s), ") if minutes else "")
+        + ((str(seconds) + " second(s), ") if seconds else "")
+        + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
+    )
+    return tmp[:-2]
+
+
 async def progress(current, total, message, start, type_of_ps, file_name=None):
     """Progress Bar For Showing Progress While Uploading / Downloading File - Normal"""
     now = time.time()
