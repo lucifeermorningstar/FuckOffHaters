@@ -3,7 +3,10 @@ from pyrogram import filters
 from DaisyX import command, SkemX as app2, arq
 from Skem import skemmers as SUDOERS
 from DaisyX.functions.basic_helpers import edit_or_reply
-from DaisyX.functions.filter_groups import chatbot_group
+
+# Filter Groups
+chat_filters_group = 1
+chatbot_group = 2
 
 USERBOT_ID = 0
 BOT_ID = 0
