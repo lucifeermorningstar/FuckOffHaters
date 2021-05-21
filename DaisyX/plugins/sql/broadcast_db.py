@@ -1,4 +1,4 @@
-from DaisyX.plugins.sql import db_x
+from DaisyX import db as db_x
 
 broadcast_db = db_x["BROADCAST_DB"]
 
