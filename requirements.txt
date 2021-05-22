@@ -9,8 +9,8 @@ requests
 pyromod
 telegraph
 Skem
-motor
-dnspython
+motor>=2.3.1
+dnspython>=2.1.0
 python-arq
 python-magic
 ffmpeg-python>=0.2.0
