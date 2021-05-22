@@ -1,5 +1,5 @@
 import time
-from typing import tuple
+from typing import Tuple
 from pyrogram.types import Message
 from pyrogram.errors import FloodWait, MessageNotModified
 from PIL import Image
