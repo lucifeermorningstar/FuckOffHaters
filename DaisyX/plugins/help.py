@@ -5,10 +5,19 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from DaisyX import SkemX as UserBot, CMD_HELP, command
-from DaisyX.functions.helpers import split_list
+
 
 heading = "──「 **{0}** 」──\n"
 
+def split_list(input_list, n):
+    """
+    Takes a list and splits it into smaller lists of n elements each.
+    :param input_list:
+    :param n:
+    :return:
+    """
+    n = max(1, n)
+    return [input_list[i : i + n] for i in range(0, len(input_list), n)]
 
 @UserBot.on_message(command("help", ".") & filters.me)
 async def module_help(_, message: Message):
