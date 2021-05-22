@@ -38,7 +38,6 @@ assist = Client(
         sleep_threshold=180,
     )
 assist.start() 
-assist.run() 
 
 # Skem For Greeting
 WELCOME_DELAY_KICK_SEC = 60
