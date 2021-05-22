@@ -3,7 +3,7 @@ from pyrogram.errors.exceptions.forbidden_403 import Forbidden
 from pyrogram.errors.exceptions.bad_request_400 import ChatSendInlineForbidden
 from DaisyX import SkemX as app, command
 
-@app.on_message(~filters.forwarded & ~filters.sticker & ~filters.via_bot & ~filters.edited & filters.me & command(['ud', 'urbandictionary']))
+@app.on_message(~filters.forwarded & ~filters.sticker & ~filters.via_bot & ~filters.edited & filters.me & command('ud'))
 async def ud(_, message):
     bot = await app.get_me()
     query = message.command
