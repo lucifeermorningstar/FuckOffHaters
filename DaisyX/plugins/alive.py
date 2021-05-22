@@ -25,7 +25,7 @@ async def ping_me(_, message: Message):
     """Ping the assistant"""
     a = await SkemX.get_me() 
     start = time.time()
-    reply = await message.reply_text("•••••")
+    reply = await message.edit_text("•••••")
     skem = await reply.edit_text("**ᴘᴏɴɢ🏓**") 
     delta_ping = time.time() - start
     await skem.edit_text(f"**[Pyrogam]**\n\n• **Ping**: `{delta_ping * 1000:.3f} ms`\n**• My Master**: `{a.first_name}`")
