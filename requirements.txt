@@ -10,7 +10,7 @@ yarl>=1.4.2
 carbonnow
 requests
 pyromod>=1.4
-pytgcalls>=0.0.22
+pytgcalls>=0.0.23
 telegraph
 Skem
 motor>=2.3.1
