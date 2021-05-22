@@ -1,60 +1,50 @@
-# (c) Copyright 2021-2022 by MaskedVirus
-# Made by Swanit (@MaskedVirus) 
+
 
 import os
 
+from telegraph import Telegraph, exceptions, upload_file
 from pyrogram import filters
-from telegraph import upload_file
 
-from DaisyX import SkemX as app, command
+from DaisyX import SkemX, commanc
+from DaisyX.functions.basic_helpers import edit_or_reply, get_text, convert_to_image
 
-@app.on_message(command("tgphoto") & filters.me)
-async def tgphoto(client, message):
+telegraph = Telegraph()
+r = telegraph.create_account(short_name="DaisyX")
+auth_url = r["auth_url"]
+
+
+@SkemX.on_message(command("telegraph") & filters.me) 
+async def telegrapher(client, message):
+    pablo = await edit_or_reply(message, "`Processing..`")
     if not message.reply_to_message:
-        await message.reply_text("Reply to a photo.")
+        await pablo.edit("Reply To Message To Parse it To Telegraph !")
         return
-    if not message.reply_to_message.photo:
-        await message.reply_text("Works only for Photos")
-        return
-    msg = await message.reply_text("`Uploading to Telegraph...`")
-    userid = str(message.chat.id)
-    path = f"./DOWNLOADS/{userid}.jpg"
-    path = await client.download_media(
-        message=message.reply_to_message, file_name=path
-    )
-    try:
-        tlink = upload_file(path)
-    except Exception:
-        await msg.edit_text("Something went Wrong.")
-    else:
-        await msg.edit_text(
-            f"Successfully Uploaded to [Telegraph](https://telegra.ph{tlink[0]})"
-        )
-        os.remove(path)
-
-
-@app.on_message(command("tgvideo") & filters.me)
-async def tgvideo(client, message):
-    if not message.reply_to_message:
-        await message.reply_text("Reply to a Video.")
-        return
-    if not message.reply_to_message.video:
-        await message.reply_text("Works only for Videos")
-        return
-    if message.video.file_size < 5242880:
-        msg = await message.reply_text("Uploading to Telegraph...")
-        userid = str(message.chat.id)
-        vid_path = f"./DOWNLOADS/{userid}.mp4"
-        vid_path = await client.download_media(
-            message=message.reply_to_message, file_name=vid_path
-        )
+    if message.reply_to_message.media:
+        # Assume its media
+        if message.reply_to_message.sticker:
+            m_d = await convert_to_image(message, client)
+        else:
+            m_d = await message.reply_to_message.download()
         try:
-            tlink = upload_file(vid_path)
-            await msg.edit_text(
-                f"Successfully Uploaded to [Telegraph](https://telegra.ph{tlink[0]})"
+            media_url = upload_file(m_d)
+        except exceptions.TelegraphException as exc:
+            await pablo.edit(
+                f"`Unable To Upload Media To Telegraph! \nTraceBack : {exc}`"
             )
-            os.remove(vid_path)
-        except Exception:
-            await msg.edit_text("Something went Wrong.")
-    else:
-        await message.reply_text("Size Should Be Less Than 5 mb")
+            os.remove(m_d)
+            return
+        U_done = f"Uploaded To Telegraph! \nLink : https://telegra.ph/{media_url[0]}"
+        await pablo.edit(U_done, disable_web_page_preview=False)
+        os.remove(m_d)
+    elif message.reply_to_message.text:
+        # Assuming its text
+        page_title = get_text(message) if get_text(message) else client.me.first_name
+        page_text = message.reply_to_message.text
+        page_text = page_text.replace("\n", "<br>")
+        try:
+            response = telegraph.create_page(page_title, html_content=page_text)
+        except exceptions.TelegraphException as exc:
+            await pablo.edit(f"`Unable To Create Telegraph! \nTraceBack : {exc}`")
+            return
+        wow_graph = f"Telegraphed! \nLink : https://telegra.ph/{response['path']}"
+        await pablo.edit(wow_graph, disable_web_page_preview=False)
