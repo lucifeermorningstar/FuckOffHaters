@@ -14,3 +14,7 @@ motor
 dnspython
 python-arq
 python-magic
+ffmpeg-python>=0.2.0
+pytgcalls
+youtube_dl
+youtube-search-python>=1.4.2
