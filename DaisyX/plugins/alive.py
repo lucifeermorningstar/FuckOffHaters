@@ -23,7 +23,7 @@ async def alive(_, message):
 @SkemX.on_message(command("ping") & filters.me)
 async def ping_me(_, message: Message):
     """Ping the assistant"""
-    a = SkemX.get_me() 
+    a = await SkemX.get_me() 
     start = time.time()
     reply = await message.reply_text("...")
     delta_ping = time.time() - start
