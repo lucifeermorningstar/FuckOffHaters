@@ -5,7 +5,7 @@ import os
 from telegraph import Telegraph, exceptions, upload_file
 from pyrogram import filters
 
-from DaisyX import SkemX, commanc
+from DaisyX import SkemX, command
 from DaisyX.functions.basic_helpers import edit_or_reply, get_text, convert_to_image
 
 telegraph = Telegraph()
