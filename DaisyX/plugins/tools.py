@@ -161,8 +161,6 @@ async def download(client, message):
             await client.send_message(chat_id=message.chat["id"], reply_to_message_id=int(message.message_id), text=str(error))
    
 
-
-'''         
 add_command_help(
     "general",
     [
@@ -204,4 +202,4 @@ add_command_help(
         
         
     ],
-)'''
+)
