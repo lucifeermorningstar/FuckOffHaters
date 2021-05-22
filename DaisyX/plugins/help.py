@@ -19,7 +19,7 @@ def split_list(input_list, n):
     n = max(1, n)
     return [input_list[i : i + n] for i in range(0, len(input_list), n)]
 
-@UserBot.on_message(command("help", ".") & filters.me)
+@UserBot.on_message(command("help") & filters.me)
 async def module_help(_, message: Message):
     cmd = message.command
 
