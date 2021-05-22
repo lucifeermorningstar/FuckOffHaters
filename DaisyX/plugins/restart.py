@@ -1,6 +1,7 @@
 # (c) Copyright 2021-2022 By lucifeermorningstar@GitHub , < https://github.com/lucifeermorningstar >
 
 import os, re, sys, asyncio
+from os import environ, execle
 from pyrogram import filters
 from pyrogram.types import Message
 
