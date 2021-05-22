@@ -9,10 +9,10 @@ from DaisyX import SkemX, command
 async def take_ss(_, message):
     try:
         if len(message.command) != 2:
-            await message.reply_text("Give A Url To Fetch Screenshot.")
+            await message.edit_text("Give A Url To Fetch Screenshot.")
             return
         url = message.text.split(None, 1)[1]
-        m = await message.reply_text("**Taking Screenshot**")
+        m = await message.edit_text("**Taking Screenshot**")
         await m.edit("**Uploading**")
         try:
             await SkemX.send_photo(
