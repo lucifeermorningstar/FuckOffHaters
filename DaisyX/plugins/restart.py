@@ -25,7 +25,7 @@ async def restart(_, message: Message):
 
 @app.on_message(command("skem") & filters.me) 
 async def wow_restart(client, message): 
-  sed = await message.reply_text("🔁 Restarting... 🔁") 
+  sed = await message.edit_text("🔁 Restarting... 🔁") 
   await sed.edit_text("••**ᴡᴀɪᴛ ғᴏʀ ᴀ ᴡʜɪʟᴇ ᴜɴᴛɪʟ ʜᴇʀᴏᴋᴜ ᴀᴘᴘ ʀᴇsᴛᴀʀᴛɪɴɢ**••") 
   args = [sys.executable, "-m", "DaisyX"] 
   execle(sys.executable, *args, environ) 
