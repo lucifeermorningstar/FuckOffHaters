@@ -3,21 +3,17 @@ pyrogram==1.2.9
 TgCrypto
 
 # Others
-psutil>=5.8.0
-attrs>=21.2.0
-chardet>=3.0.3
-yarl>=1.4.2
+psutil
 carbonnow
 requests
-pyromod>=1.4
-pytgcalls>=0.0.23
+pyromod
 telegraph
 Skem
-motor>=2.3.1
-dnspython>=2.1.0
+motor
+dnspython
 python-arq
 python-magic
-ffmpeg-python>=0.2.0
+ffmpeg-python
 pytgcalls
 youtube_dl
-youtube-search-python>=1.4.2
+youtube-search-python
