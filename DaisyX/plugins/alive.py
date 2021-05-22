@@ -27,4 +27,4 @@ async def ping_me(_, message: Message):
     start = time.time()
     reply = await message.reply_text("...")
     delta_ping = time.time() - start
-    await reply.edit_text(f"[Pyrogam]\n**♪•••Pong!•••♪**\n==>My Master:`{a.first_name}`\n==>Ping:`{delta_ping * 1000:.3f} ms`")
+    await reply.edit_text(f"[Pyrogam]\n**♪•••Pong!•••♪**\n\n**•My Master**:`{a.first_name}`\n•**Ping**:`{delta_ping * 1000:.3f} ms`")
