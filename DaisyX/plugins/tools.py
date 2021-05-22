@@ -2,6 +2,7 @@ from pyrogram.errors import BadRequest
 from pyrogram import filters
 from DaisyX import SkemX as UserBot, command
 from DaisyX.functions.PyroHelpers import GetChatID
+from DaisyX.plugins.help import add_command_help
 import time
 import os
 from pathlib import Path
