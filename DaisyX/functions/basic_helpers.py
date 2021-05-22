@@ -1,4 +1,5 @@
 import time
+from typing import tuple
 from pyrogram.types import Message
 from pyrogram.errors import FloodWait, MessageNotModified
 from PIL import Image
@@ -98,6 +99,20 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
                 await asyncio.sleep(e.x)
             except MessageNotModified:
                 pass
+
+async def run_cmd(cmd: str) -> Tuple[str, str, int, int]:
+    """Run Commands"""
+    args = shlex.split(cmd)
+    process = await asyncio.create_subprocess_exec(
+        *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await process.communicate()
+    return (
+        stdout.decode("utf-8", "replace").strip(),
+        stderr.decode("utf-8", "replace").strip(),
+        process.returncode,
+        process.pid,
+    )
 
 async def convert_to_image(message, client) -> [None, str]:
     """Convert Most Media Formats To Raw Image"""
