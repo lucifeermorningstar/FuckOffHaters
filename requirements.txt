@@ -4,6 +4,7 @@ TgCrypto
 
 # Others
 psutil>=5.8.0
+yarl>=1.4.2
 carbonnow
 requests
 pyromod
