@@ -35,10 +35,10 @@ async def clone(client, message):
 	q = await app.get_profile_photos(target)
 
 	# Download it
-	await client.download_media(q[0], file_name="nana/downloads/pp.png")
+	await client.download_media(q[0], file_name="DaisyX/downloads/pp.png")
 
 	# Set new pp
-	await app.set_profile_photo("nana/downloads/pp.png")
+	await app.set_profile_photo("DaisyX/downloads/pp.png")
 
 	# Get target profile
 	t = await app.get_users(target)
