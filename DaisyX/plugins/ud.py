@@ -19,7 +19,7 @@ async def ud(_, message):
     query = ' '.join(query)
     if not query:
         return
-    results = await client.get_inline_bot_results(bot.username or bot.id, 'ud' + query)
+    results = await app.get_inline_bot_results(bot.username or bot.id, 'ud' + query)
     if not results.results:
         await message.reply_text('There are no definitions')
         return
