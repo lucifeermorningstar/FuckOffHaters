@@ -4,6 +4,7 @@ TgCrypto
 
 # Others
 psutil>=5.8.0
+chardet>=3.0.3
 yarl>=1.4.2
 carbonnow
 requests
