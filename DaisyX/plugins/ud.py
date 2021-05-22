@@ -1,7 +1,7 @@
 from pyrogram import filters
 from pyrogram.errors.exceptions.forbidden_403 import Forbidden
 from pyrogram.errors.exceptions.bad_request_400 import ChatSendInlineForbidden
-from DaisyX import SkemX as app, command
+from DaisyX import assist as app, command
 
 @app.on_message(~filters.forwarded & ~filters.sticker & ~filters.via_bot & ~filters.edited & filters.me & command('ud'))
 async def ud(_, message):
