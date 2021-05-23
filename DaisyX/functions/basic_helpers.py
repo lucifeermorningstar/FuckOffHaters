@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from distutils.util import strtobool
 
 class Config(object):
+    SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
     AFS = list(SUDO_USERS) 
 
 async def edit_or_reply(message, text, parse_mode="md"):
