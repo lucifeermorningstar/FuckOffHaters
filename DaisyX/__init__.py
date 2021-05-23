@@ -14,6 +14,16 @@ from configparser import ConfigParser
 from logging.handlers import TimedRotatingFileHandler
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
 
+API_ID = os.environ.get("API_ID", 1) 
+API_HASH = os.environ.get("API_HASH", None) 
+SESSION = os.environ.get("SESSION", None) 
+PREFIX = os.environ.get("PREFIX", ".") # '.' as default prefix
+DATABASE_URL = os.environ.get("DATABASE_URL")
+MONGO_DB_URI = os.environ.get("MONGO_DB_URI") 
+SUDO_USERS = os.environ.get("SUDO_USERS") 
+TOKEN = os.environ.get("TOKEN") 
+HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY") 
+HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME") 
 
 # Config in init as of now
 class Config(object):
