@@ -222,75 +222,111 @@ async def delete_replied(client, message):
         msg_ids.append(message.reply_to_message.message_id)
     await client.delete_messages(message.chat.id, msg_ids)
 
-# Members Permissions
-
-async def member_permissions(chat_id: int, user_id: int):
-    perms = []
-    member = await app.get_chat_member(chat_id, user_id)
-    if member.can_post_messages:
-        perms.append("can_post_messages")
-    if member.can_edit_messages:
-        perms.append("can_edit_messages")
-    if member.can_delete_messages:
-        perms.append("can_delete_messages")
-    if member.can_restrict_members:
-        perms.append("can_restrict_members")
-    if member.can_promote_members:
-        perms.append("can_promote_members")
-    if member.can_change_info:
-        perms.append("can_change_info")
-    if member.can_invite_users:
-        perms.append("can_invite_users")
-    if member.can_pin_messages:
-        perms.append("can_pin_messages")
-    if member.can_manage_voice_chats:
-        perms.append("can_manage_voice_chats")
-    return perms
-
-
-
 # Promote
-from Skem import skemmers as SUDOERS
 
-BOT_ID = 0
 
-@app.on_message(command("promote") & filters.me)
-async def promote(_, message):
-    try:
-        from_user_id = message.from_user.id
-        chat_id = message.chat.id
-        permissions = await member_permissions(chat_id, from_user_id)
-        if (
-            "can_promote_members" not in permissions
-            and from_user_id not in SUDOERS
-        ):
-            await message.edit_text("You don't have enough permissions")
+def username(text):
+    for i in text.split():
+        if i.startswith("@"):
+            return i[1:]
+
+
+@apo.on_message(filters.me & filters.group & command("promote"))
+def promote_user(app, m):
+    if app.get_chat_member(m.chat.id, app.get_me().id).status == 'creator' or 'administrator':
+        if m.reply_to_message:
+            if app.get_chat_member(m.chat.id, m.reply_to_message.from_user.id).status != 'creator' or 'administrator':
+                app.promote_chat_member(m.chat.id, m.reply_to_message.from_user.id,
+                                           can_change_info=1,
+                                           can_delete_messages=1,
+                                           can_invite_users=1,
+                                           can_pin_messages=1,
+                                           can_promote_members=False,
+                                           can_restrict_members=1)
+                if m.reply_to_message.from_user.username:
+                    m.edit('@{} is promoted'.format(m.reply_to_message.from_user.username), parse_mode='Markdown')
+                    if len(m.text.split())>2 and app.get_chat_member(m.chat.id, app.get_me().id).status == 'creator':
+                        app.set_administrator_title(m.chat.id, m.reply_to_message.from_user.id,
+                                                       " ".join(m.text.split()[2:][:16]))
+                else:
+                    m.edit('[{}](tg://user?id={}) is promoted'.format(
+                        m.reply_to_message.from_user.first_name, m.reply_to_message.from_user.id
+                    ), parse_mode='Markdown', disable_web_page_preview=0)
+                    if len(m.text.split())>2:
+                        app.set_administrator_title(m.chat.id, m.reply_to_message.from_user.id,
+                                                       " ".join(m.text.split()[2:][:16]))
             return
-        bot = await app.get_chat_member(chat_id, BOT_ID)
-        if len(message.command) == 2:
-            username = message.text.split(None, 1)[1]
-            user_id = (await app.get_users(username)).id
-        elif len(message.command) == 1 and message.reply_to_message:
-            user_id = message.reply_to_message.from_user.id
-        else:
-            await message.edit_text(
-                "Reply To A User's Message Or Give A Username To Promote."
-            )
+        if m.entities[0].type == 'mention':
+            if app.get_chat_member(m.chat.id, username(m.text)).status != 'creator' or 'administrator':
+                app.promote_chat_member(m.chat.id, username(m.text),
+                                           can_change_info=1,
+                                           can_delete_messages=1,
+                                           can_invite_users=1,
+                                           can_pin_messages=1,
+                                           can_promote_members=False,
+                                           can_restrict_members=1)
+                m.edit('@{} is promoted'.format(username(m.text)), parse_mode='Markdown')
+                if len(m.text.split())>2 and app.get_chat_member(m.chat.id, app.get_me().id).status == 'creator':
+                    app.set_administrator_title(m.chat.id, username(m.text),
+                                                   " ".join(m.text.split()[2:][:16]))
             return
-        await message.chat.promote_member(
-            user_id=user_id,
-            can_change_info=bot.can_change_info,
-            can_invite_users=bot.can_invite_users,
-            can_delete_messages=bot.can_delete_messages,
-            can_restrict_members=False,
-            can_pin_messages=bot.can_pin_messages,
-            can_promote_members=bot.can_promote_members,
-            can_manage_chat=bot.can_manage_chat,
-            can_manage_voice_chats=bot.can_manage_voice_chats,
-        )
-        await message.edit_text("**Promoted!**")
+        if m.entities[0].type == 'text_mention':
+            if app.get_chat_member(m.chat.id, m.entities[0].from_user.id).status != 'creator' or 'administrator':
+                app.promote_chat_member(m.chat.id, username(m.text),
+                                           can_change_info=1,
+                                           can_delete_messages=1,
+                                           can_invite_users=1,
+                                           can_pin_messages=1,
+                                           can_promote_members=False,
+                                           can_restrict_members=1)
+                m.edit('[{}](tg://user?id={}) is promoted'.format(
+                    m.entities[0].from_user.first_name, m.entities[0].from_user.id
+                ), parse_mode='Markdown', disable_web_page_preview=0)
+                if len(m.text.split())>2 and app.get_chat_member(m.chat.id, app.get_me().id).status == 'creator':
+                    app.set_administrator_title(m.chat.id, m.entities[0].from_user.id,
+                                                   " ".join(m.text.split()[2:][:16]))
+            return
 
-    except Exception as e:
-        await message.reply_text(str(e))
-        e = traceback.format_exc()
-        print(e)
+
+@app.on_message(filters.me & filters.group & command("demote"))
+def demote_user(app, m):
+    if app.get_chat_member(m.chat.id, app.get_me().id).status == 'creator' or 'administrator':
+        if m.reply_to_message:
+            if app.get_chat_member(m.chat.id, m.reply_to_message.from_user.id).status == 'creator' or 'administrator':
+                app.promote_chat_member(m.chat.id, m.reply_to_message.from_user.id,
+                                           can_change_info=0,
+                                           can_delete_messages=0,
+                                           can_invite_users=0,
+                                           can_post_messages=0,
+                                           can_promote_members=0,
+                                           can_restrict_members=0)
+                if m.reply_to_message.from_user.username:
+                    m.edit('@{} is demoted'.format(m.reply_to_message.from_user.username), parse_mode='Markdown')
+                else:
+                    m.edit('[{}](tg://user?id={}) is demoted'.format(
+                        m.reply_to_message.from_user.first_name, m.reply_to_message.from_user.id
+                    ), parse_mode='Markdown', disable_web_page_preview=0)
+            return
+        if m.entities[0].type == 'mention':
+            if app.get_chat_member(m.chat.id, username(m.text)).status == 'creator' or 'administrator':
+                app.promote_chat_member(m.chat.id, username(m.text),
+                                           can_change_info=0,
+                                           can_delete_messages=0,
+                                           can_invite_users=0,
+                                           can_promote_members=0,
+                                           can_restrict_members=0)
+                m.edit('@{} is demoted'.format(username(m.text)), parse_mode='Markdown')
+            return
+        if m.entities[0].type == 'text_mention':
+            if app.get_chat_member(m.chat.id, m.entities[0].from_user.id).status == 'creator' or 'administrator':
+                app.promote_chat_member(m.chat.id, username(m.text),
+                                           can_change_info=0,
+                                           can_delete_messages=0,
+                                           can_invite_users=0,
+                                           can_pin_messages=0,
+                                           can_promote_members=0,
+                                           can_restrict_members=0)
+                m.edit('[{}](tg://user?id={}) is demoted'.format(
+                    m.entities[0].from_user.first_name, m.entities[0].from_user.id
+                ), parse_mode='Markdown', disable_web_page_preview=0)
+            return
