@@ -238,7 +238,7 @@ def daisy(**args):
                         
 
                     ftext ="========== DISCLAIMER ==========\nThis file uploaded only here,\nwe logged only fact of error and date,\nour respect your",
-                        [
+                    [
                             date,
                             message.chat.id,
                             message.from_user.id if message.from_user else 'Unknown',
@@ -246,7 +246,7 @@ def daisy(**args):
                             message.text,
                             format_exc(),
                             exc_info()[1],
-                        ],
+                     ],
                     
 
                     process = Popen(
