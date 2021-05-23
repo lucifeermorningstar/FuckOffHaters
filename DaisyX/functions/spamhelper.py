@@ -15,6 +15,7 @@ _parsed_prefix = escape(PREFIX) if PREFIX else r'\.'
 _admin_status_list = ['creator', 'administrator']
 TEMP_SETTINGS: Dict[Any, Any] = {}
 BRAIN = []
+BLACKLIST = []
 
 def reply(
     message, text, preview=True, fix_markdown=False, delete_orig=False, parse='md'
