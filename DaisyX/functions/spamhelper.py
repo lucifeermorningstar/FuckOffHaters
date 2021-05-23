@@ -232,7 +232,7 @@ def daisy(**args):
                         text = get_translation('logidTest')
                     else:
                         if not disable_notify:
-                            edit(message, f'`{get_translation("errorLogSend")}`')
+                            edit(message, f'`**SomeThing Went Wrong. Sending Logs to Log Group.**`')
                         text = get_translation(
                             'sedenErrorText', ['**', '`', exc_info()[1]]
                         )
