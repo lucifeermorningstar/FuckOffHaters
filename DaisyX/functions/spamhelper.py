@@ -246,7 +246,7 @@ def daisy(**args):
                             message.text,
                             format_exc(),
                             exc_info()[1],
-                     ],
+                    ],
                     
 
                     process = Popen(
