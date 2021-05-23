@@ -4,8 +4,11 @@ from pyrogram.types import Message
 from pyrogram.errors import FloodWait, MessageNotModified
 from PIL import Image
 
+from dotenv import load_dotenv
+from distutils.util import strtobool
+
 class Config(object):
-    AFS = os.environ.get("SUDO_USERS") 
+    AFS = list(SUDO_USERS) 
 
 async def edit_or_reply(message, text, parse_mode="md"):
     """Edit Message If Its From Self, Else Reply To Message, (Only Works For Sudo's)"""
