@@ -176,7 +176,7 @@ def daisy(**args):
     if pattern and pattern[-1:] != '$':
         args['pattern'] = pattern = f'{pattern}(?: |$)'
 
-def msg_decorator(func):
+    def msg_decorator(func):
         def wrap(client, message):
             if message.empty or not message.from_user:
                 return
