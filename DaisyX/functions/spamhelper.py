@@ -1,9 +1,14 @@
 from re import escape, sub, search as resr
-from os import remove
+from os import remove, getpid, system
 import os
 from typing import Any, Dict
+from sys import exc_info
+from time import gmtime, strftime
+from traceback import format_exc
 
 from pyrogram.types import Message, Chat
+from pyrogram ContinuePropagation, StopPropagation, filters
+from subprocess import PIPE, Popen
 from DaisyX import PREFIX, SkemX as app
 
 MARKDOWN_FIX_CHAR = '\u2064'
