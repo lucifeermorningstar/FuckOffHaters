@@ -7,6 +7,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from DaisyX import SkemX, StartTime, command
+from DaisyX.plugins.help import add_command_help
 
 @SkemX.on_message(command("alive") & filters.me)
 async def alive(_, message):
@@ -29,3 +30,10 @@ async def ping_me(_, message: Message):
     skem = await reply.edit_text("**ᴘᴏɴɢ🏓**") 
     delta_ping = time.time() - start
     await skem.edit_text(f"**[Pyrogam]**\n\n• **Ping**: `{delta_ping * 1000:.3f} ms`\n**• My Master**: `{a.first_name}`")
+
+add_command_help(
+     "alive", 
+      [
+          [".alive", " this will just show some details mainly this is used to check is bot working or not"]
+      ], 
+) 
