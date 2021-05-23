@@ -3,7 +3,7 @@ import asyncio
 from pyrogram import filters
 from pyrogram.types import Message
 
-from DaisyX import SkemX as app, assist as app2
+from DaisyX import SkemX as app, assist as app2, db
 
 pipesdb = db.pipes
 
