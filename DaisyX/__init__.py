@@ -6,7 +6,7 @@ import pathlib
 import logging
 
 from pyrogram import Client, filters
-#from pyromod import listen
+from pyromod import listen
 from datetime import datetime
 from functools import partial
 from Python_ARQ import ARQ
@@ -68,7 +68,7 @@ ARQ_API_KEY = "WSKVWS-ZOTXYY-UZEAID-VFJFKR-ARQ"
 print("[INFO]: INITIALIZING ARQ")
 arq = ARQ(ARQ_API_URL, ARQ_API_KEY)
 
-# listen = listen
+listen = listen
 
 # Extras
 __version__ = "S.0.1"
