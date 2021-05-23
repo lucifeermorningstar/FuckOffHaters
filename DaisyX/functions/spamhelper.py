@@ -292,8 +292,8 @@ def msg_decorator(func):
             filter &= ~filters.edited
 
         app.add_handler(MessageHandler(wrap, filter))
-
-           return msg_decorator
+    
+   return msg_decorator
 
 
 class RetardsException(Exception):
