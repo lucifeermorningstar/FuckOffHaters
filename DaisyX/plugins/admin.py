@@ -221,6 +221,32 @@ async def delete_replied(client, message):
         msg_ids.append(message.reply_to_message.message_id)
     await client.delete_messages(message.chat.id, msg_ids)
 
+# Members Permissions
+
+async def member_permissions(chat_id: int, user_id: int):
+    perms = []
+    member = await app.get_chat_member(chat_id, user_id)
+    if member.can_post_messages:
+        perms.append("can_post_messages")
+    if member.can_edit_messages:
+        perms.append("can_edit_messages")
+    if member.can_delete_messages:
+        perms.append("can_delete_messages")
+    if member.can_restrict_members:
+        perms.append("can_restrict_members")
+    if member.can_promote_members:
+        perms.append("can_promote_members")
+    if member.can_change_info:
+        perms.append("can_change_info")
+    if member.can_invite_users:
+        perms.append("can_invite_users")
+    if member.can_pin_messages:
+        perms.append("can_pin_messages")
+    if member.can_manage_voice_chats:
+        perms.append("can_manage_voice_chats")
+    return perms
+
+
 
 # Promote
 from Skem import skemmers as SUDOERS
