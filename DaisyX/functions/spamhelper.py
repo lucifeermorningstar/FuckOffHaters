@@ -240,23 +240,17 @@ def daisy(**args):
                     ftext ="========== DISCLAIMER ==========\nThis file uploaded only here,\nwe logged only fact of error and date,\nour respect your",
                     [f"date, message.chat.id, message.from_user.id if message.from_user else 'Unknown', BOT_VERSION, message.text, format_exc(), exc_info()[1]],
                     
-                    process = Popen(
-                        ['git', 'log', '--pretty=format:"%an: %s"', '-10'],
-                        stdout=PIPE,
-                        stderr=PIPE,
-                    )
+                    process = Popen(['git', 'log', '--pretty=format:"%an: %s"', '-10'], stdout=PIPE, stderr=PIPE)
                     out, err = process.communicate()
                     out = f'{out.decode()}\n{err.decode()}'.strip()
 
                     ftext += out
 
-                    file = open(get_translation('rbgLog'), 'w+')
+                    file = open("error.log", 'w+')
                     file.write(ftext)
                     file.close()
 
-                    send_log_doc(
-                        get_translation('rbgLog'), caption=text, remove_file=True
-                    )
+                    send_log_doc("error.log", caption=text, remove_file=True)
                     raise e
                 except Exception as x:
                     raise x
