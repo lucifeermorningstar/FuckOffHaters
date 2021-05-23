@@ -238,7 +238,7 @@ def daisy(**args):
                         
 
                     ftext ="========== DISCLAIMER ==========\nThis file uploaded only here,\nwe logged only fact of error and date,\nour respect your",
-                    [f"date, message.chat.id, message.from_user.id if message.from_user else 'Unknown', BOT_VERSION, message.text, format_exc(), exc_info()[1]],
+                    [f"date, message.chat.id, message.from_user.id if message.from_user else 'Unknown', BOT_VERSION, message.text, format_exc(), exc_info()[1]]
                     
                     process = Popen(['git', 'log', '--pretty=format:"%an: %s"', '-10'], stdout=PIPE, stderr=PIPE)
                     out, err = process.communicate()
