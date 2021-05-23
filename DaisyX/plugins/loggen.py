@@ -8,6 +8,8 @@ import base64
 import sys
 import random
 import requests
+from pyrogram import filters
+
 from DaisyX import SkemX, command
 from DaisyX.functions.basic_helpers import edit_or_reply, get_text
 
