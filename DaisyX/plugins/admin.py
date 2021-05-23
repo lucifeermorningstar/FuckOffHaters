@@ -223,9 +223,11 @@ async def delete_replied(client, message):
 
 
 # Promote
+from Skem import skemmers as SUDOERS
+
+BOT_ID = 0
 
 @app.on_message(command("promote") & filters.me)
-@capture_err
 async def promote(_, message):
     try:
         from_user_id = message.from_user.id
