@@ -6,7 +6,7 @@ TgCrypto
 psutil
 carbonnow
 requests
-pyromod
+#pyromod
 telegraph
 Skem
 motor
