@@ -7,7 +7,7 @@ from pyrogram.errors import UserAdminInvalid
 from pyrogram.methods.chats.get_chat_members import Filters as ChatMemberFilters
 
 from DaisyX import SkemX as app, command
-from DaisyDaisyX.functions.PyroHelpers import get_arg, get_args
+from DaisyX.functions.PyroHelpers import get_arg, get_args
 from DaisyX.functions.AdminHelpers import CheckAdmin
 from DaisyX.plugins.help import add_command_help
 
