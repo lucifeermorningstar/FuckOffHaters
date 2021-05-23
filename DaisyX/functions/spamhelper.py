@@ -234,12 +234,10 @@ def daisy(**args):
                     else:
                         if not disable_notify:
                             edit(message, f'`**SomeThing Went Wrong. Sending Logs to Log Group.**`')
-                        text =
-                            "%1ERROR:%1\n\n%2%3%2\n\n%1See the Log File for details.%1", ['**', '`', exc_info()[1]]
+                        text ="%1ERROR:%1\n\n%2%3%2\n\n%1See the Log File for details.%1", ['**', '`', exc_info()[1]]
                         
 
-                    ftext = 
-                        "========== DISCLAIMER ==========\nThis file uploaded only here,\nwe logged only fact of error and date,\nour respect your",
+                    ftext ="========== DISCLAIMER ==========\nThis file uploaded only here,\nwe logged only fact of error and date,\nour respect your",
                         [
                             date,
                             message.chat.id,
