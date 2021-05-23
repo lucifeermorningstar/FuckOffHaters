@@ -7,7 +7,7 @@ from time import gmtime, strftime
 from traceback import format_exc
 
 from pyrogram.types import Message, Chat
-from pyrogram ContinuePropagation, StopPropagation, filters
+from pyrogram import ContinuePropagation, StopPropagation, filters
 from subprocess import PIPE, Popen
 from pyrogram.handlers import MessageHandler
 from DaisyX.translator import get_translation
