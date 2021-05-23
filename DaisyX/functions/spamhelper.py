@@ -234,12 +234,12 @@ def daisy(**args):
                     else:
                         if not disable_notify:
                             edit(message, f'`**SomeThing Went Wrong. Sending Logs to Log Group.**`')
-                        text = get_translation(
-                            'sedenErrorText', ['**', '`', exc_info()[1]]
-                        )
+                        text =
+                            'I don't have brain, you too don't I guess', ['**', '`', exc_info()[1]]
+                        
 
-                    ftext = get_translation(
-                        'sedenErrorText2',
+                    ftext = 
+                        '========== DISCLAIMER ==========\nThis file uploaded only here,\nwe logged only fact of error and date,\nour respect your',
                         [
                             date,
                             message.chat.id,
@@ -249,7 +249,7 @@ def daisy(**args):
                             format_exc(),
                             exc_info()[1],
                         ],
-                    )
+                    
 
                     process = Popen(
                         ['git', 'log', '--pretty=format:"%an: %s"', '-10'],
