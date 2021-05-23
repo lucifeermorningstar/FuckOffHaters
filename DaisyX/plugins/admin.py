@@ -231,7 +231,7 @@ def username(text):
             return i[1:]
 
 
-@apo.on_message(filters.me & filters.group & command("promote"))
+@app.on_message(filters.me & filters.group & command("promote"))
 def promote_user(app, m):
     if app.get_chat_member(m.chat.id, app.get_me().id).status == 'creator' or 'administrator':
         if m.reply_to_message:
