@@ -1,51 +1,66 @@
 import time
-
+import asyncio
 from pyrogram import filters
 from pyrogram.types import Message, ChatPermissions
 
 from pyrogram.errors import UserAdminInvalid
+from pyrogram.methods.chats.get_chat_members import Filters as ChatMemberFilters
 
-from DaisyX import SkemX as UserBot, command
-from DaisyX.functions.PyroHelpers import GetUserMentionable
-from DaisyX.functions.AdminHelpers import CheckAdmin, CheckReplyAdmin, RestrictFailed
+from DaisyX import SkemX as app, command
+from DaisyDaisyX.functions.PyroHelper import get_arg, get_args
+from DaisyX.functions.AdminHelper import CheckAdmin
+from DaisyX.plugins.help import add_command_help
 
-@UserBot.on_message(command("ban") & filters.me)
+
+'''        "Admin Tools": """
+ **Admin Tools** 
+  `ban` -> Bans user indefinitely.
+  `unban` -> Unbans the user.
+  `promote` [optional title] -> Promotes a user.
+  `demote` _> Demotes a user.
+  `mute` -> Mutes user indefinitely.
+  `unmute` -> Unmutes the user.
+  `kick` -> Kicks the user out of the group.
+  `gmute` -> Doesn't lets a user speak(even admins).
+  `ungmute` -> Inverse of what gmute does.
+  `pin` -> pins a message.
+  `del` -> delete a message.
+  `purge` -> purge message(s)
+  `invite` -> add user to chat.
+""" '''
+   
+
+
+@app.on_message(command("ban") & filters.me)
 async def ban_hammer(_, message: Message):
-    if await CheckReplyAdmin(message) is True and await CheckAdmin(message) is True:
-        try:
-            mention = GetUserMentionable(message.reply_to_message.from_user)
-            if message.command == ["ban", "24"]:
-                await UserBot.kick_chat_member(
-                    chat_id=message.chat.id,
-                    user_id=message.reply_to_message.from_user.id,
-                    until_date=int(time.time() + 86400),
-                )
-                await message.edit(f"{mention} has been banned for 24hrs.")
-            else:
-                await UserBot.kick_chat_member(
-                    chat_id=message.chat.id,
-                    user_id=message.reply_to_message.from_user.id,
-                )
-                await message.edit(f"{mention} has been banned indefinitely.")
-        except UserAdminInvalid:
-            await RestrictFailed(message)
+    reply = message.reply_to_message
+    if reply:
+        user = reply.from_user["id"]
+    else:
+        user = get_arg(message)
+    try:
+        get_user = await app.get_users(user)
+        await app.kick_chat_member(
+        chat_id=message.chat.id,
+        user_id=get_user.id,
+        )
+        await message.edit(f"Banned [{get_user.first_name}](tg://user?id={get_user.id}) from the chat.")
+    except Exception as e:
+        await message.edit(f"{e}")
 
-
-@UserBot.on_message(command("unban") & filters.me)
+@app.on_message(command("unban") & filters.me)
 async def unban(_, message: Message):
-    if await CheckReplyAdmin(message) is True and await CheckAdmin(message) is True:
-        try:
-            mention = GetUserMentionable(message.reply_to_message.from_user)
-            await UserBot.unban_chat_member(
-                chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id
-            )
-            await message.edit(
-                f"Congratulations {mention} you have been unbanned."
-                " Follow the rules and be careful from now on."
-            )
-        except UserAdminInvalid:
-            await message.edit("I can't unban this user.")
-
+    reply = message.reply_to_message
+    if reply:
+        user = reply.from_user["id"]
+    else:
+        user = get_arg(message)
+    try:
+        get_user = await app.get_users(user)
+        await app.unban_chat_member(chat_id=message.chat.id, user_id=get_user.id)
+        await message.edit(f"Unbanned [{get_user.first_name}](tg://user?id={get_user.id}) from the chat.")
+    except Exception as e:
+        await message.edit(f"{e}")
 
 # Mute Permissions
 mute_permission = ChatPermissions(
@@ -63,29 +78,19 @@ mute_permission = ChatPermissions(
 )
 
 
-@UserBot.on_message(command(["mute", "mute 24"]) & filters.me)
+@app.on_message(command("mute") & filters.me)
 async def mute_hammer(_, message: Message):
-    if await CheckReplyAdmin(message) is True and await CheckAdmin(message) is True:
-        try:
-            mention = GetUserMentionable(message.reply_to_message.from_user)
-            if message.command == ["mute", "24"]:
-                await UserBot.restrict_chat_member(
-                    chat_id=message.chat.id,
-                    user_id=message.reply_to_message.from_user.id,
-                    permissions=mute_permission,
-                    until_date=int(time.time() + 86400),
-                )
-                await message.edit(f"{mention} has been muted for 24hrs.")
-            else:
-                await UserBot.restrict_chat_member(
-                    chat_id=message.chat.id,
-                    user_id=message.reply_to_message.from_user.id,
-                    permissions=mute_permission,
-                )
-                await message.edit(f"{mention} has been muted indefinitely.")
-        except UserAdminInvalid:
-            await RestrictFailed(message)
-
+    reply = message.reply_to_message
+    if reply:
+        user = reply.from_user["id"]
+    else:
+        user = get_arg(message)
+    try:
+        get_user = await app.get_users(user)
+        await app.restrict_chat_member(chat_id=message.chat.id, user_id=get_user.id, permissions=mute_permission)
+        await message.edit(f"[{get_user.first_name}](tg://user?id={get_user.id}) has been muted.**")
+    except Exception as e:
+        await message.edit(f"{e}")
 
 # Unmute permissions
 unmute_permissions = ChatPermissions(
@@ -103,121 +108,155 @@ unmute_permissions = ChatPermissions(
 )
 
 
-@UserBot.on_message(command("unmute") & filters.me)
+@app.on_message(command("unmute") & filters.me)
 async def unmute(_, message: Message):
-    if await CheckReplyAdmin(message) is True and await CheckAdmin(message) is True:
-        try:
-            mention = GetUserMentionable(message.reply_to_message.from_user)
-            await UserBot.restrict_chat_member(
-                chat_id=message.chat.id,
-                user_id=message.reply_to_message.from_user.id,
-                permissions=unmute_permissions,
-            )
-            await message.edit(f"{mention}, you may send messages here now.")
-        except UserAdminInvalid:
-            await RestrictFailed(message)
+    reply = message.reply_to_message
+    if reply:
+        user = reply.from_user["id"]
+    else:
+        user = get_arg(message)
+    try:
+        get_user = await app.get_users(user)
+        await app.restrict_chat_member(chat_id=message.chat.id, user_id=get_user.id, permissions=unmute_permissions)
+        await message.edit(f"[{get_user.first_name}](tg://user?id={get_user.id}) has been muted.**")
+    except Exception as e:
+        await message.edit(f"{e}")
 
+@app.on_message(command("kick") & filters.me)
+async def kick_usr(_, message: Message):
+    reply = message.reply_to_message
+    if reply:
+        user = reply.from_user["id"]
+    else:
+        user = get_arg(message)
+    try:
+        get_user = await app.get_users(user)
+        await app.kick_chat_member(chat_id=message.chat.id, user_id=get_user.id)
+        await app.unban_chat_member(chat_id=message.chat.id, user_id=get_user.id)
+        await message.edit(f"Succefully Kicked [{get_user.first_name}](tg://user?id={get_user.id})")
+    except Exception as e:
+        await message.edit(f"{e}")
 
-@UserBot.on_message(command("kick") & filters.me)
-async def kick_user(_, message: Message):
-    if await CheckReplyAdmin(message) is True and await CheckAdmin(message) is True:
-        try:
-            mention = GetUserMentionable(message.reply_to_message.from_user)
-            await UserBot.kick_chat_member(
-                chat_id=message.chat.id,
-                user_id=message.reply_to_message.from_user.id,
-            )
-            await message.edit(f"{mention}, Sayonara motherfucker.")
-        except UserAdminInvalid:
-            await RestrictFailed(message)
+@app.on_message(command("pin") & filters.me)
+async def pin_message(_, message: Message):
+    # First of all check if its a group or not
+    if message.chat.type in ["group", "supergroup"]:
+        # Here lies the sanity checks
+        admins = await app.get_chat_members(
+            message.chat.id, filter=ChatMemberFilters.ADMINISTRATORS
+        )
+        admin_ids = [user.user.id for user in admins]
+        me = await app.get_me()
 
+        # If you are an admin
+        if me.id in admin_ids:
+            # If you replied to a message so that we can pin it.
+            if message.reply_to_message:
+                disable_notification = True
 
+                # Let me see if you want to notify everyone. People are gonna hate you for this...
+                if len(message.command) >= 2 and message.command[1] in [
+                    "alert",
+                    "notify",
+                    "loud",
+                ]:
+                    disable_notification = False
 
-import math
-from datetime import datetime
-
-from pyrogram import filters
-
-from DaisyX import SkemX as app, command
-
-Owner = 0
-
-@app.on_message(filters.me & command("purge"))
-async def purge(client, message):
-    if message.reply_to_message:
-        start_t = datetime.now()
-        user_id = None
-        from_user = None
-        start_message = message.reply_to_message.message_id
-        end_message = message.message_id
-        list_of_messages = await client.get_messages(chat_id=message.chat.id,
-                                                    message_ids=range(start_message, end_message),
-                                                    replies=0)
-        list_of_messages_to_delete = []
-        purged_messages_count = 0
-        for a_message in list_of_messages:
-            if len(list_of_messages_to_delete) == 100:
-                await client.delete_messages(chat_id=message.chat.id,
-                                            message_ids=list_of_messages_to_delete,
-                                            revoke=True)
-                purged_messages_count += len(list_of_messages_to_delete)
-                list_of_messages_to_delete = []
-            if from_user is not None:
-                if a_message.from_user == from_user:
-                    list_of_messages_to_delete.append(a_message.message_id)
+                # Pin the fucking message.
+                await app.pin_chat_message(
+                    message.chat.id,
+                    message.reply_to_message.message_id,
+                    disable_notification=disable_notification,
+                )
+                await message.edit("`Pinned message!`")
             else:
-                list_of_messages_to_delete.append(a_message.message_id)
-        await client.delete_messages(chat_id=message.chat.id,
-                                    message_ids=list_of_messages_to_delete,
-                                    revoke=True)
-        purged_messages_count += len(list_of_messages_to_delete)
-        end_t = datetime.now()
-        time_taken_s = (end_t - start_t).seconds
-        await message.delete()
+                # You didn't reply to a message and we can't pin anything. ffs
+                await message.edit(
+                    "`Reply to a message so that I can pin the god damned thing...`"
+                )
+        else:
+            # You have no business running this command.
+            await message.edit("User need to be Admin to use this command")
     else:
-        out = "Reply to a message to to start purge."
-        await message.delete()
+        # Are you fucking dumb this is not a group ffs.
+        await message.edit("`This is not a place where I can Pin Messages`")
 
+    # And of course delete your lame attempt at changing the group picture.
+    # RIP you.
+    # You're probably gonna get ridiculed by everyone in the group for your failed attempt.
+    # RIP.
+    await asyncio.sleep(3)
+    await message.delete()
 
-@app.on_message(filters.me & filters.command("purgeme"))
-async def purge_myself(client, message):
-    if len(message.text.split()) >= 2 and message.text.split()[1].isdigit():
-        target = int(message.text.split()[1])
+@app.on_message(command("promote") & filters.me)
+async def promote(client, message: Message):
+    try:
+        title = "Admin"
+        reply = message.reply_to_message
+        if reply:
+            user = reply.from_user["id"]
+            title = str(get_arg(message))
+        else:
+            args = get_args(message)
+        user = args[0]
+        if len(args) > 1:
+            title = " ".join(args[1:])
+        get_user = await app.get_users(user)
+        await app.promote_chat_member(message.chat.id, user, can_manage_chat=True, can_change_info=True, can_delete_messages=True, can_restrict_members=True, can_invite_users=True, can_pin_messages=True, can_manage_voice_chats=True)
+        await message.edit(
+            f"Successfully Promoted [{get_user.first_name}](tg://user?id={get_user.id}) with title {title}"
+        )
+
+    except Exception as e:
+        await message.edit(f"{e}")
+
+    if title:
+        try:
+            await app.set_administrator_title(message.chat.id, user, title)
+        except:
+            pass
+
+@app.on_message(command("demote") & filters.me)
+async def demote(client, message: Message):
+    try:
+        reply = message.reply_to_message
+        if reply:
+            user = reply.from_user["id"]
+        else:
+            user = get_arg(message)
+        get_user = await app.get_users(user)
+        await app.promote_chat_member(
+            message.chat.id,
+            user,
+            is_anonymous=False,
+            can_change_info=False,
+            can_delete_messages=False,
+            can_edit_messages=False,
+            can_invite_users=False,
+            can_promote_members=False,
+            can_restrict_members=False,
+            can_pin_messages=False,
+            can_post_messages=False,
+        )
+        await message.edit(
+            f"Successfully Demoted [{get_user.first_name}](tg://user?id={get_user.id})"
+        )
+    except Exception as e:
+        await message.edit(f"{e}")
+
+@app.on_message(command("invite") & filters.me & ~filters.private)
+async def invite(client, message):
+    reply = message.reply_to_message
+    if reply:
+        user = reply.from_user["id"]
     else:
-        await message.edit("Give me a number for a range!")
-    get_msg = await client.get_history(message.chat.id)
-    listall = []
-    counter = 0
-    for x in get_msg:
-        if counter == target + 1:
-            break
-        if x.from_user.id == int(Owner):
-            listall.append(x.message_id)
-            counter += 1
-    if len(listall) >= 101:
-        total = len(listall)
-        semua = listall
-        jarak = 0
-        jarak2 = 0
-        for x in range(math.ceil(len(listall) / 100)):
-            if total >= 101:
-                jarak2 += 100
-                await client.delete_messages(message.chat.id, message_ids=semua[jarak:jarak2])
-                jarak += 100
-                total -= 100
-            else:
-                jarak2 += total
-                await client.delete_messages(message.chat.id, message_ids=semua[jarak:jarak2])
-                jarak += total
-                total -= total
-    else:
-        await client.delete_messages(message.chat.id, message_ids=listall)
-
-
-@app.on_message(filters.me & command("del"))
-async def delete_replied(client, message):
-    msg_ids = [message.message_id]
-    if message.reply_to_message:
-        msg_ids.append(message.reply_to_message.message_id)
-    await client.delete_messages(message.chat.id, msg_ids)
-
+        user = get_arg(message)
+        if not user:
+            await message.edit("**I can't invite no-one, can I?**")
+            return
+    get_user = await app.get_users(user)
+    try:
+        await app.add_chat_members(message.chat.id, get_user.id)
+        await message.edit(f"Successfully added [{get_user.first_name}](tg://user?id={get_user.id}) to this chat")
+    except Exception as e:
+        await message.edit(f"{e}")
