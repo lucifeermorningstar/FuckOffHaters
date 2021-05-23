@@ -4,7 +4,7 @@ import os
 from typing import Any, Dict
 
 from pyrogram.types import Message, Chat
-from DaisyX import PREFIX, app
+from DaisyX import PREFIX, SkemX as app
 
 MARKDOWN_FIX_CHAR = '\u2064'
 SPAM_COUNT = [0]
