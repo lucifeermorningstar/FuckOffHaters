@@ -6,7 +6,7 @@ import pathlib
 import logging
 
 from pyrogram import Client, filters
-from pyromod import listen
+#from pyromod import listen
 from datetime import datetime
 from functools import partial
 from Python_ARQ import ARQ
