@@ -77,7 +77,6 @@ loop.create_task(load_pipes())
 
 
 @app.on_message(~filters.me, group=pipes_group)
-@capture_err
 async def pipes_worker_bot(_, message: Message):
     for pipe in pipes_list_bot:
         if pipe["from_chat_id"] == message.chat.id:
@@ -85,7 +84,6 @@ async def pipes_worker_bot(_, message: Message):
 
 
 @app2.on_message(~filters.me, group=pipes_group)
-@capture_err
 async def pipes_worker_userbot(_, message: Message):
     for pipe in pipes_list_userbot:
         if pipe["from_chat_id"] == message.chat.id:
@@ -112,8 +110,7 @@ async def pipes_worker_userbot(_, message: Message):
             )
 
 
-@app.on_message(filters.command("activate_pipe") & filters.user(SUDOERS))
-@capture_err
+@app.on_message(command("activate_pipe") & filters.me)
 async def activate_pipe_func(_, message: Message):
     if len(message.command) != 4:
         await message.reply_text(
@@ -135,8 +132,7 @@ async def activate_pipe_func(_, message: Message):
     await message.reply_text("Activated pipe.")
 
 
-@app.on_message(filters.command("deactivate_pipe") & filters.user(SUDOERS))
-@capture_err
+@app.on_message(command("deactivate_pipe") & filters.me)
 async def deactivate_pipe_func(_, message: Message):
     if len(message.command) != 3:
         await message.reply_text(
@@ -154,8 +150,7 @@ async def deactivate_pipe_func(_, message: Message):
     await message.reply_text("Deactivated pipe.")
 
 
-@app.on_message(filters.command("pipes") & filters.user(SUDOERS))
-@capture_err
+@app.on_message(command("pipes") & filters.me)
 async def show_pipes_func(_, message: Message):
     pipes = pipes_list_bot + pipes_list_userbot
     if not pipes:
