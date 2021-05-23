@@ -23,6 +23,7 @@ _admin_status_list = ['creator', 'administrator']
 TEMP_SETTINGS: Dict[Any, Any] = {}
 BRAIN = []
 BLACKLIST = []
+BOT_VERSION = "s.0.1"
 
 def reply(
     message, text, preview=True, fix_markdown=False, delete_orig=False, parse='md'
