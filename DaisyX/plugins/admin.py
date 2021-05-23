@@ -221,3 +221,47 @@ async def delete_replied(client, message):
         msg_ids.append(message.reply_to_message.message_id)
     await client.delete_messages(message.chat.id, msg_ids)
 
+
+# Promote
+
+@app.on_message(command("promote") & filters.me)
+@capture_err
+async def promote(_, message):
+    try:
+        from_user_id = message.from_user.id
+        chat_id = message.chat.id
+        permissions = await member_permissions(chat_id, from_user_id)
+        if (
+            "can_promote_members" not in permissions
+            and from_user_id not in SUDOERS
+        ):
+            await message.edit_text("You don't have enough permissions")
+            return
+        bot = await app.get_chat_member(chat_id, BOT_ID)
+        if len(message.command) == 2:
+            username = message.text.split(None, 1)[1]
+            user_id = (await app.get_users(username)).id
+        elif len(message.command) == 1 and message.reply_to_message:
+            user_id = message.reply_to_message.from_user.id
+        else:
+            await message.edit_text(
+                "Reply To A User's Message Or Give A Username To Promote."
+            )
+            return
+        await message.chat.promote_member(
+            user_id=user_id,
+            can_change_info=bot.can_change_info,
+            can_invite_users=bot.can_invite_users,
+            can_delete_messages=bot.can_delete_messages,
+            can_restrict_members=False,
+            can_pin_messages=bot.can_pin_messages,
+            can_promote_members=bot.can_promote_members,
+            can_manage_chat=bot.can_manage_chat,
+            can_manage_voice_chats=bot.can_manage_voice_chats,
+        )
+        await message.edit_text("**Promoted!**")
+
+    except Exception as e:
+        await message.reply_text(str(e))
+        e = traceback.format_exc()
+        print(e)
