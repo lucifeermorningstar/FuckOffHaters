@@ -14,3 +14,4 @@ dnspython
 python-arq
 python-magic
 prettytable==2.0.0
+aiofiles
