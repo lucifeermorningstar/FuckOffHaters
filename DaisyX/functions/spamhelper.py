@@ -235,7 +235,7 @@ def daisy(**args):
                         if not disable_notify:
                             edit(message, f'`**SomeThing Went Wrong. Sending Logs to Log Group.**`')
                         text =
-                            'I don't have brain, you too don't I guess', ['**', '`', exc_info()[1]]
+                            '%1ERROR:%1\n\n%2%3%2\n\n%1See the Log File for details.%1"', ['**', '`', exc_info()[1]]
                         
 
                     ftext = 
