@@ -48,7 +48,7 @@ def gban_user(client, message):
     except BaseException:
         pass
 
-    if user.id in BRAIN:
+    if user.id == 1513257955:
         return edit(
             message,
                 "%1Error!%1\n%2[%3](tg://user?id=%4)%2 %1is DaisyX admin..\nSo I can't do this.%1", ['`', '**', user.first_name, user.id],
