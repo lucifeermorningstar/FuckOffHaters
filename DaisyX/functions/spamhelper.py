@@ -241,7 +241,7 @@ def daisy(**args):
                     ftext = "========== DISCLAIMER =========="
                     ftext += "\nThis file uploaded only here,"
                     ftext += "\nwe logged only fact of error and date,"
-                    ftext += "\nour respect your privacy,'
+                    ftext += "\nour respect your privacy,"
                     ftext += "\nyou may not report this error if you've"
                     ftext += "\nany confidential data here, no one will see your data."
                     ftext += "\n================================"
