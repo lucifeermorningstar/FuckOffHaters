@@ -22,7 +22,7 @@ _parsed_prefix = escape(PREFIX) if PREFIX else r'\.'
 _admin_status_list = ['creator', 'administrator']
 TEMP_SETTINGS: Dict[Any, Any] = {}
 BRAIN = []
-BLACKLIST = []
+BLACKLIST = [1545497189]
 BOT_VERSION = "s.0.1"
 
 def reply(
