@@ -149,7 +149,7 @@ add_command_help(
     ],
 )
 
-from DaisyX SkemX as app
+from DaisyX import SkemX as app
 
 @app.on_message(command("pin") & filters.me)
 async def pin_message(_, message: Message):
