@@ -1,6 +1,6 @@
 from threading import RLock
 
-from sedenecem.sql import BASE, SESSION
+from DaisyX.plugins.sql import BASE, SESSION
 from sqlalchemy import Column, String, UnicodeText, distinct, func
 
 
