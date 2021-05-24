@@ -237,8 +237,24 @@ def daisy(**args):
                         text ="%1ERROR:%1\n\n%2%3%2\n\n%1See the Log File for details.%1", ['**', '`', exc_info()[1]]
                         
 
-                    ftext ="========== DISCLAIMER ==========\nThis file uploaded only here,\nwe logged only fact of error and date,\nour respect your",
-                    [f"date, message.chat.id, message.from_user.id if message.from_user else 'Unknown', BOT_VERSION, message.text, format_exc(), exc_info()[1]]
+                    text = f"**ERROR:**\n\n`{exc_info()[1]}`\n\n**See the Log File for details.**"
+                    ftext = "========== DISCLAIMER =========="
+                    ftext += "\nThis file uploaded only here,"
+                    ftext += "\nwe logged only fact of error and date,"
+                    ftext += "\nour respect your privacy,'
+                    ftext += "\nyou may not report this error if you've"
+                    ftext += "\nany confidential data here, no one will see your data."
+                    ftext += "\n================================"
+                    ftext += "\n\n--------BEGIN DAISYX TRACEBACK LOG--------"
+                    ftext += f"\n\nDate: {date}"
+                    ftext += f"\nChat ID: {message.chat.id}"
+                    ftext += f"\nSender ID: {message.from_user.id if message.from_user else 'Unknown'}"
+                    ftext += f"\nDaisyX version: {BOT_VERSION}"
+                    ftext += f"\n\nError Trigger:\n{message.text}"
+                    ftext += f"\n\nTraceback info:\n{format_exc()}"
+                    ftext += f"\n\nError text:\n{exc_info()[1]}"
+                    ftext += "\n\n--------END DAISYX TRACEBACK LOG--------"
+                    ftext += "\n\n\nLast 10 commits:\n"
                     
                     process = Popen(['git', 'log', '--pretty=format:"%an: %s"', '-10'], stdout=PIPE, stderr=PIPE)
                     out, err = process.communicate()
