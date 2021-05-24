@@ -1,66 +1,55 @@
+
 import time
 import asyncio
+
 from pyrogram import filters
 from pyrogram.types import Message, ChatPermissions
 
 from pyrogram.errors import UserAdminInvalid
-from pyrogram.methods.chats.get_chat_members import Filters as ChatMemberFilters
 
-from DaisyX import SkemX as app, command
-from DaisyX.functions.PyroHelpers import get_arg, get_args
-from DaisyX.functions.AdminHelpers import CheckAdmin
+from DaisyX import SkemX as UserBot, command
+from DaisyX.functions.PyroHelpers import GetUserMentionable, get_arg, get_args
+from DaisyX.functions.AdminHelpers import CheckAdmin, CheckReplyAdmin, RestrictFailed
 from DaisyX.plugins.help import add_command_help
 
 
-'''        "Admin Tools": """
- **Admin Tools** 
-  `ban` -> Bans user indefinitely.
-  `unban` -> Unbans the user.
-  `promote` [optional title] -> Promotes a user.
-  `demote` _> Demotes a user.
-  `mute` -> Mutes user indefinitely.
-  `unmute` -> Unmutes the user.
-  `kick` -> Kicks the user out of the group.
-  `gmute` -> Doesn't lets a user speak(even admins).
-  `ungmute` -> Inverse of what gmute does.
-  `pin` -> pins a message.
-  `del` -> delete a message.
-  `purge` -> purge message(s)
-  `invite` -> add user to chat.
-""" '''
-   
-
-
-@app.on_message(command("ban") & filters.me)
+@UserBot.on_message(command("ban") & filters.me)
 async def ban_hammer(_, message: Message):
-    reply = message.reply_to_message
-    if reply:
-        user = reply.from_user["id"]
-    else:
-        user = get_arg(message)
-    try:
-        get_user = await app.get_users(user)
-        await app.kick_chat_member(
-        chat_id=message.chat.id,
-        user_id=get_user.id,
-        )
-        await message.edit(f"Banned [{get_user.first_name}](tg://user?id={get_user.id}) from the chat.")
-    except Exception as e:
-        await message.edit(f"{e}")
+    if await CheckReplyAdmin(message) is True and await CheckAdmin(message) is True:
+        try:
+            mention = GetUserMentionable(message.reply_to_message.from_user)
+            if message.command == ["ban", "24"]:
+                await UserBot.kick_chat_member(
+                    chat_id=message.chat.id,
+                    user_id=message.reply_to_message.from_user.id,
+                    until_date=int(time.time() + 86400),
+                )
+                await message.edit(f"{mention} has been banned for 24hrs.")
+            else:
+                await UserBot.kick_chat_member(
+                    chat_id=message.chat.id,
+                    user_id=message.reply_to_message.from_user.id,
+                )
+                await message.edit(f"{mention} has been banned indefinitely.")
+        except UserAdminInvalid:
+            await RestrictFailed(message)
 
-@app.on_message(command("unban") & filters.me)
+
+@UserBot.on_message(command("unban") & filters.me)
 async def unban(_, message: Message):
-    reply = message.reply_to_message
-    if reply:
-        user = reply.from_user["id"]
-    else:
-        user = get_arg(message)
-    try:
-        get_user = await app.get_users(user)
-        await app.unban_chat_member(chat_id=message.chat.id, user_id=get_user.id)
-        await message.edit(f"Unbanned [{get_user.first_name}](tg://user?id={get_user.id}) from the chat.")
-    except Exception as e:
-        await message.edit(f"{e}")
+    if await CheckReplyAdmin(message) is True and await CheckAdmin(message) is True:
+        try:
+            mention = GetUserMentionable(message.reply_to_message.from_user)
+            await UserBot.unban_chat_member(
+                chat_id=message.chat.id, user_id=message.reply_to_message.from_user.id
+            )
+            await message.edit(
+                f"Congratulations {mention} you have been unbanned."
+                " Follow the rules and be careful from now on."
+            )
+        except UserAdminInvalid:
+            await message.edit("I can't unban this user.")
+
 
 # Mute Permissions
 mute_permission = ChatPermissions(
@@ -78,19 +67,29 @@ mute_permission = ChatPermissions(
 )
 
 
-@app.on_message(command("mute") & filters.me)
+@UserBot.on_message(command(["mute", "mute 24"]) & filters.me)
 async def mute_hammer(_, message: Message):
-    reply = message.reply_to_message
-    if reply:
-        user = reply.from_user["id"]
-    else:
-        user = get_arg(message)
-    try:
-        get_user = await app.get_users(user)
-        await app.restrict_chat_member(chat_id=message.chat.id, user_id=get_user.id, permissions=mute_permission)
-        await message.edit(f"[{get_user.first_name}](tg://user?id={get_user.id}) has been muted.**")
-    except Exception as e:
-        await message.edit(f"{e}")
+    if await CheckReplyAdmin(message) is True and await CheckAdmin(message) is True:
+        try:
+            mention = GetUserMentionable(message.reply_to_message.from_user)
+            if message.command == ["mute", "24"]:
+                await UserBot.restrict_chat_member(
+                    chat_id=message.chat.id,
+                    user_id=message.reply_to_message.from_user.id,
+                    permissions=mute_permission,
+                    until_date=int(time.time() + 86400),
+                )
+                await message.edit(f"{mention} has been muted for 24hrs.")
+            else:
+                await UserBot.restrict_chat_member(
+                    chat_id=message.chat.id,
+                    user_id=message.reply_to_message.from_user.id,
+                    permissions=mute_permission,
+                )
+                await message.edit(f"{mention} has been muted indefinitely.")
+        except UserAdminInvalid:
+            await RestrictFailed(message)
+
 
 # Unmute permissions
 unmute_permissions = ChatPermissions(
@@ -108,34 +107,49 @@ unmute_permissions = ChatPermissions(
 )
 
 
-@app.on_message(command("unmute") & filters.me)
+@UserBot.on_message(command("unmute") & filters.me)
 async def unmute(_, message: Message):
-    reply = message.reply_to_message
-    if reply:
-        user = reply.from_user["id"]
-    else:
-        user = get_arg(message)
-    try:
-        get_user = await app.get_users(user)
-        await app.restrict_chat_member(chat_id=message.chat.id, user_id=get_user.id, permissions=unmute_permissions)
-        await message.edit(f"[{get_user.first_name}](tg://user?id={get_user.id}) has been muted.**")
-    except Exception as e:
-        await message.edit(f"{e}")
+    if await CheckReplyAdmin(message) is True and await CheckAdmin(message) is True:
+        try:
+            mention = GetUserMentionable(message.reply_to_message.from_user)
+            await UserBot.restrict_chat_member(
+                chat_id=message.chat.id,
+                user_id=message.reply_to_message.from_user.id,
+                permissions=unmute_permissions,
+            )
+            await message.edit(f"{mention}, you may send messages here now.")
+        except UserAdminInvalid:
+            await RestrictFailed(message)
 
-@app.on_message(command("kick") & filters.me)
-async def kick_usr(_, message: Message):
-    reply = message.reply_to_message
-    if reply:
-        user = reply.from_user["id"]
-    else:
-        user = get_arg(message)
-    try:
-        get_user = await app.get_users(user)
-        await app.kick_chat_member(chat_id=message.chat.id, user_id=get_user.id)
-        await app.unban_chat_member(chat_id=message.chat.id, user_id=get_user.id)
-        await message.edit(f"Succefully Kicked [{get_user.first_name}](tg://user?id={get_user.id})")
-    except Exception as e:
-        await message.edit(f"{e}")
+
+@UserBot.on_message(command("kick") & filters.me)
+async def kick_user(_, message: Message):
+    if await CheckReplyAdmin(message) is True and await CheckAdmin(message) is True:
+        try:
+            mention = GetUserMentionable(message.reply_to_message.from_user)
+            await UserBot.kick_chat_member(
+                chat_id=message.chat.id,
+                user_id=message.reply_to_message.from_user.id,
+            )
+            await message.edit(f"{mention}, Sayonara motherfucker.")
+        except UserAdminInvalid:
+            await RestrictFailed(message)
+
+
+add_command_help(
+    "ban",
+    [
+        [".ban", "Bans user indefinitely."],
+        [".ban 24", "Bans user for 24hrs."],
+        [".unban", "Unbans the user."],
+        [".mute", "Mutes user indefinitely."],
+        [".mute 24", "Bans user for 24hrs."],
+        [".unmute", "Unmutes the user."],
+        [".kick", "Kicks the user out of the group."],
+    ],
+)
+
+from DaisyX SkemX as app
 
 @app.on_message(command("pin") & filters.me)
 async def pin_message(_, message: Message):
