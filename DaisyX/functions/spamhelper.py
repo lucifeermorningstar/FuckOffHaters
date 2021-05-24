@@ -187,9 +187,6 @@ def daisy(**args):
                     me = app.get_me()
                     TEMP_SETTINGS['ME'] = me
 
-                    if me.id in BLACKLIST:
-                        raise RetardsException('RETARDS CANNOT USE THIS BOT')
-
                 if message.service and not service:
                     return
 
